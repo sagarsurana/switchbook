@@ -4,7 +4,6 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -568,13 +567,127 @@
             </objects>
             <point key="canvasLocation" x="1197.5999999999999" y="1132.9835082458771"/>
         </scene>
+        <!--GROUPS-->
+        <scene sceneID="A82-F9-i9U">
+            <objects>
+                <tableViewController title="GROUPS" id="Hmc-SF-b0m" customClass="GroupTableViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Eyh-qY-umI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <connections>
+                            <outlet property="dataSource" destination="Hmc-SF-b0m" id="EGU-3l-syK"/>
+                            <outlet property="delegate" destination="Hmc-SF-b0m" id="Q25-DI-YoV"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="GROUPS" id="zeg-X6-Uv0">
+                        <barButtonItem key="rightBarButtonItem" title="+" id="EDs-d8-u6F">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="addGroup:" destination="Hmc-SF-b0m" id="sQd-Ml-nKU"/>
+                                <segue destination="kqy-Qn-IbU" kind="show" id="wzl-nH-Ji2"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <segue destination="dLX-dD-YnR" kind="show" identifier="groupDetail" id="los-nz-oBT"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6Do-p6-8yF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4534" y="77"/>
+        </scene>
+        <!--Add Group View Controller-->
+        <scene sceneID="reu-sc-Og1">
+            <objects>
+                <viewController id="kqy-Qn-IbU" customClass="AddGroupViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RfI-7w-9B9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GRC-W1-O6S">
+                                <rect key="frame" x="16" y="233" width="343" height="273"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Group name" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4B0-xC-oQU">
+                                <rect key="frame" x="24" y="89" width="327" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Person" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jhh-Al-0XR">
+                                <rect key="frame" x="24" y="127" width="288" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7ch-Jp-x2d">
+                                <rect key="frame" x="320" y="126" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="+"/>
+                                <connections>
+                                    <action selector="addPerson:" destination="kqy-Qn-IbU" eventType="touchUpInside" id="pv3-kc-ur3"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eHs-5G-bRP">
+                                <rect key="frame" x="150" y="569" width="74" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Add Group"/>
+                                <connections>
+                                    <action selector="addGroup:" destination="kqy-Qn-IbU" eventType="touchUpInside" id="rIc-5s-nqk"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="THp-Qi-Um0"/>
+                    </view>
+                    <connections>
+                        <outlet property="person" destination="jhh-Al-0XR" id="DQ5-vd-nBU"/>
+                        <outlet property="tableView" destination="GRC-W1-O6S" id="47f-AR-Jsh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bw6-n5-fxQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5518" y="81"/>
+        </scene>
+        <!--Group Detail Table View Controller-->
+        <scene sceneID="Gsn-eZ-JlO">
+            <objects>
+                <tableViewController id="dLX-dD-YnR" customClass="GroupDetailTableViewController" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkB-cI-1m4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4534" y="869"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="F4b-Sz-2eK">
+            <objects>
+                <navigationController id="7G9-Un-f12" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="srb-tJ-9eu">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="0.15806825760000001" green="0.69867227980000002" blue="0.23346297669999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Hmc-SF-b0m" kind="relationship" relationship="rootViewController" id="0B3-sk-ESC"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ccT-cH-bPz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3583" y="77"/>
+        </scene>
     </scenes>
     <resources>
         <image name="logo" width="198" height="255"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="9Ya-Oo-59R"/>
-        <segue reference="2RS-kD-eX3"/>
-        <segue reference="1YS-Ty-Kti"/>
+        <segue reference="wGu-af-sub"/>
+        <segue reference="nQE-6D-bGe"/>
+        <segue reference="Wg8-Fn-v0m"/>
     </inferredMetricsTieBreakers>
 </document>
