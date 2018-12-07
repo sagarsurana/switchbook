@@ -1,0 +1,6 @@
+framework module Pods_switchBook {
+  umbrella header "Pods-switchBook-umbrella.h"
+
+  export *
+  module * { export * }
+}
