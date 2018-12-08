@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -188,7 +188,42 @@
             </objects>
             <point key="canvasLocation" x="1197.5999999999999" y="-604.04797601199402"/>
         </scene>
-        <!--Profile View Controller-->
+        <!--Notifications-->
+        <scene sceneID="9bB-Av-JhO">
+            <objects>
+                <viewController id="y2D-Un-hw5" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="EkP-4l-RQv">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Zx7-33-h1E"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Notifications" id="3MJ-Fx-5IH"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="XTA-L6-LRP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2770" y="-1749"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="46E-R0-bNO">
+            <objects>
+                <tabBarController id="pyi-9p-Sa5" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="UiF-nN-S9E">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="y2D-Un-hw5" kind="relationship" relationship="viewControllers" id="AGw-sw-goL"/>
+                        <segue destination="49a-LM-tSk" kind="relationship" relationship="viewControllers" id="Fw3-JR-Nwv"/>
+                        <segue destination="Hmc-SF-b0m" kind="relationship" relationship="viewControllers" id="9X8-De-Nz0"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TWH-du-uEF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1822" y="-1415"/>
+        </scene>
+        <!--Profile-->
         <scene sceneID="bof-PV-NOR">
             <objects>
                 <viewController id="49a-LM-tSk" customClass="ProfileViewController" customModule="switchBook" customModuleProvider="target" sceneMemberID="viewController">
@@ -241,7 +276,7 @@
                                 </connections>
                             </button>
                             <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IQp-7L-RXx">
-                                <rect key="frame" x="0.0" y="618" width="375" height="49"/>
+                                <rect key="frame" x="0.0" y="569" width="375" height="49"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <items>
                                     <tabBarItem selectedImage="logo" systemItem="contacts" id="91x-zv-BaS"/>
@@ -281,6 +316,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Ijy-hs-dwT"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Profile" id="KgI-cC-cNE"/>
                     <connections>
                         <outlet property="addButton" destination="5wm-RF-cqh" id="BUU-dt-v84"/>
                         <outlet property="list" destination="m4F-Sk-J4F" id="9Ck-Bo-VK1"/>
@@ -567,10 +603,10 @@
             </objects>
             <point key="canvasLocation" x="1197.5999999999999" y="1132.9835082458771"/>
         </scene>
-        <!--GROUPS-->
+        <!--Groups-->
         <scene sceneID="A82-F9-i9U">
             <objects>
-                <tableViewController title="GROUPS" id="Hmc-SF-b0m" customClass="GroupTableViewController" sceneMemberID="viewController">
+                <tableViewController title="Groups" id="Hmc-SF-b0m" customClass="GroupTableViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Eyh-qY-umI">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -580,6 +616,7 @@
                             <outlet property="delegate" destination="Hmc-SF-b0m" id="Q25-DI-YoV"/>
                         </connections>
                     </tableView>
+                    <tabBarItem key="tabBarItem" title="Item" id="i2k-7o-dsL"/>
                     <navigationItem key="navigationItem" title="GROUPS" id="zeg-X6-Uv0">
                         <barButtonItem key="rightBarButtonItem" title="+" id="EDs-d8-u6F">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -686,8 +723,9 @@
         <image name="logo" width="198" height="255"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="0B3-sk-ESC"/>
         <segue reference="wGu-af-sub"/>
-        <segue reference="nQE-6D-bGe"/>
+        <segue reference="Fw3-JR-Nwv"/>
         <segue reference="Wg8-Fn-v0m"/>
     </inferredMetricsTieBreakers>
 </document>
