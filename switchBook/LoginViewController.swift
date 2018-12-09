@@ -19,6 +19,8 @@ class LoginViewController: UIViewController {
         let authUI = FUIAuth.defaultAuthUI()
         authUI?.delegate = self as? FUIAuthDelegate
         _ = authUI!.authViewController()
+        login.layer.cornerRadius = 10
+        login.clipsToBounds = true
     }
     
     @IBAction func forgot(_ sender: Any) {

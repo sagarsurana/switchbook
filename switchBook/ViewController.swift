@@ -22,6 +22,9 @@ class ViewController: UIViewController {
             }
         }
         logo.image = UIImage(named: "logo")
+        
+        self.login.layer.cornerRadius = 10
+        self.login.clipsToBounds = true
     }
 
     @IBAction func loginPage(_ sender: Any) {
