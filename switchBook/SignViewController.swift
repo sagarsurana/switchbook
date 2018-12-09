@@ -2,9 +2,6 @@
 //  SignViewController.swift
 //  switchBook
 //
-//  Created by Aviral Sharma on 11/28/18.
-//  Copyright © 2018 AviralSharma. All rights reserved.
-//
 
 import UIKit
 import FirebaseUI
@@ -28,8 +25,6 @@ class SignViewController: UIViewController {
     @IBOutlet weak var haveAccount: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func haveAccount(_ sender: Any) {
@@ -38,9 +33,6 @@ class SignViewController: UIViewController {
     
     @IBAction func accountCreate(_ sender: Any) {
         if((name.text?.isEmpty)! || (email.text?.isEmpty)! || (password.text?.isEmpty)! || (retypedPassword.text?.isEmpty)! || (age.text?.isEmpty)! || (address.text?.isEmpty)! || (zip.text?.isEmpty)! || (userName.text?.isEmpty)!) {
-            //one of the fields is empty
-            
-                
                 // create the alert
                 let alert = UIAlertController(title: "Incorrect Details", message: "One of the fields is empty", preferredStyle: UIAlertController.Style.alert)
                 
@@ -49,11 +41,7 @@ class SignViewController: UIViewController {
                 
                 // show the alert
                 self.present(alert, animated: true, completion: nil)
-            
         } else if(!(password.text)!.elementsEqual((retypedPassword.text)!)) {
-            //typed and retyped password do not match
-            
-                
                 // create the alert
                 let alert = UIAlertController(title: "Password incorrect", message: "The passwords dont match", preferredStyle: UIAlertController.Style.alert)
                 
@@ -62,11 +50,7 @@ class SignViewController: UIViewController {
                 
                 // show the alert
                 self.present(alert, animated: true, completion: nil)
-            
         } else if(strlen(zip.text) < 5) {
-            //incorrect zipcode
-           
-                
                 // create the alert
                 let alert = UIAlertController(title: "Incorrect zip code", message: "The zip code is wrong", preferredStyle: UIAlertController.Style.alert)
                 
@@ -75,11 +59,9 @@ class SignViewController: UIViewController {
                 
                 // show the alert
                 self.present(alert, animated: true, completion: nil)
-            
         } else {
-            
             Auth.auth().createUser(withEmail: email.text!, password: password.text!) { (authResult, error) in
-                guard let user = authResult?.user else { return }
+                guard (authResult?.user) != nil else { return }
             }
             self.performSegue(withIdentifier: "signupIdentifier", sender: self)
         }

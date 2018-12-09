@@ -1,10 +1,6 @@
 //
 //  ViewController.swift
 //  switchBook
-//
-//  Created by Aviral Sharma on 11/27/18.
-//  Copyright © 2018 AviralSharma. All rights reserved.
-//
 
 import UIKit
 import FirebaseUI
@@ -35,6 +31,5 @@ class ViewController: UIViewController {
     @IBAction func signInPage(_ sender: Any) {
         performSegue(withIdentifier: "signPage", sender: self)
     }
-    
 }
 
