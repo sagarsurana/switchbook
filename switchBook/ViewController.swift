@@ -7,15 +7,25 @@
 //
 
 import UIKit
+import FirebaseUI
 
 class ViewController: UIViewController {
 
     @IBOutlet weak var login: UIButton!
     @IBOutlet weak var logo: UIImageView!
     @IBOutlet weak var sign: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        Auth.auth().addStateDidChangeListener { auth, user in
+            if user != nil {
+                print(user?.email!)
+                // User is signed in.
+                if let tabViewController = self.storyboard?.instantiateViewController(withIdentifier: "TabBarController") as? UITabBarController {
+                    self.present(tabViewController, animated: false, completion: nil)
+                }
+            }
+        }
         logo.image = UIImage(named: "logo")
     }
 
