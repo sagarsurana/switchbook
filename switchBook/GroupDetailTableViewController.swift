@@ -7,10 +7,13 @@
 //
 
 import UIKit
+//import FirebaseDatabase
 
 class GroupDetailTableViewController: UITableViewController {
     
+//    var memberRef: DatabaseReference!
     var members = ["Dad", "Mom", "Allen"]
+    //  gro
     
     override func viewDidLoad() {
         super.viewDidLoad()
