@@ -12,7 +12,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var tabBar: UITabBar!
     @IBOutlet weak var profileAge: UILabel!
-    
+        
     @IBOutlet weak var switchedBookName: UILabel!
     @IBOutlet weak var list: UIScrollView!
     
