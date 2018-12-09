@@ -7,18 +7,26 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class GroupTableViewController: UITableViewController {
     
     var groups = ["Family", "Friends", "Club"];
+    var ref: DatabaseReference!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ref = Database.database().reference()
+        
+        ref.child("groups").child("group_name").setValue(groups)
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        print("hellloo")
+        print(ref)
     }
     
     // MARK: - Table view data source
@@ -31,6 +39,11 @@ class GroupTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         cell.textLabel?.text = groups[indexPath.row]
+
+        //adding the group inside the generated unique key
+//        ref.child("group").child("group name").setValue(cell.textLabel)
+        
+
         return cell
     }
     
