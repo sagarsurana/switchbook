@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseUI
 
 class LoginViewController: UIViewController {
 
@@ -18,8 +19,10 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        let authUI = FUIAuth.defaultAuthUI()
+        authUI?.delegate = self as? FUIAuthDelegate
+        // You need to adopt a FUIAuthDelegate protocol to receive callback
+        _ = authUI!.authViewController()
     }
     
     @IBAction func forgot(_ sender: Any) {
@@ -35,6 +38,16 @@ class LoginViewController: UIViewController {
             
             // show the alert
             self.present(alert, animated: true, completion: nil)
+        } else {
+            Auth.auth().signIn(withEmail: emailInput.text!, password: passwordInput.text!) { (user, error) in
+                // [START_EXCLUDE]
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                }
+                print("signed in")
+                self.performSegue(withIdentifier: "loginIdentifier", sender: self)
+            }
         }
         //else if command to check if uch a user exists or not
         /*

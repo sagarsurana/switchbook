@@ -128,7 +128,7 @@
                                 </state>
                                 <connections>
                                     <action selector="loginAuthentication:" destination="03T-9c-DXh" eventType="touchUpInside" id="zwu-WB-ahN"/>
-                                    <segue destination="49a-LM-tSk" kind="show" identifier="loginProfile" id="nQE-6D-bGe"/>
+                                    <segue destination="pyi-9p-Sa5" kind="show" identifier="loginIdentifier" id="8lU-Pi-ImR"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ewt-IT-Ttb">
@@ -216,7 +216,7 @@
                     <connections>
                         <segue destination="y2D-Un-hw5" kind="relationship" relationship="viewControllers" id="AGw-sw-goL"/>
                         <segue destination="49a-LM-tSk" kind="relationship" relationship="viewControllers" id="Fw3-JR-Nwv"/>
-                        <segue destination="Hmc-SF-b0m" kind="relationship" relationship="viewControllers" id="9X8-De-Nz0"/>
+                        <segue destination="7G9-Un-f12" kind="relationship" relationship="viewControllers" id="OxR-oA-TID"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TWH-du-uEF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -275,14 +275,6 @@
                                     <action selector="addBook:" destination="49a-LM-tSk" eventType="touchUpInside" id="361-EZ-dHx"/>
                                 </connections>
                             </button>
-                            <tabBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IQp-7L-RXx">
-                                <rect key="frame" x="0.0" y="569" width="375" height="49"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <items>
-                                    <tabBarItem selectedImage="logo" systemItem="contacts" id="91x-zv-BaS"/>
-                                    <tabBarItem systemItem="more" id="k3I-93-bcY"/>
-                                </items>
-                            </tabBar>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The List Of Books: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eWA-p7-hKA">
                                 <rect key="frame" x="0.0" y="210" width="145" height="26"/>
                                 <constraints>
@@ -300,14 +292,11 @@
                         </subviews>
                         <color key="backgroundColor" red="0.092298485338687897" green="0.55140435695648193" blue="0.46524316072463989" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="IQp-7L-RXx" firstAttribute="leading" secondItem="Ijy-hs-dwT" secondAttribute="leading" id="3M9-hf-JTb"/>
                             <constraint firstItem="eWA-p7-hKA" firstAttribute="top" secondItem="5wm-RF-cqh" secondAttribute="bottom" constant="42" id="4Dk-Vo-rPO"/>
-                            <constraint firstItem="IQp-7L-RXx" firstAttribute="trailing" secondItem="Ijy-hs-dwT" secondAttribute="trailing" id="9sc-aJ-u9G"/>
                             <constraint firstItem="5wm-RF-cqh" firstAttribute="centerX" secondItem="jmL-tp-rKe" secondAttribute="centerX" id="Pcb-ci-SDw"/>
                             <constraint firstItem="jwV-96-dfz" firstAttribute="leading" secondItem="6Qk-zz-kDd" secondAttribute="trailing" constant="43" id="Usq-tt-Vmt"/>
                             <constraint firstItem="eWA-p7-hKA" firstAttribute="leading" secondItem="Ijy-hs-dwT" secondAttribute="leading" id="XDT-GV-7dx"/>
                             <constraint firstItem="6Qk-zz-kDd" firstAttribute="top" secondItem="KiI-jF-aw5" secondAttribute="bottom" constant="40" id="bIA-nT-hGF"/>
-                            <constraint firstItem="IQp-7L-RXx" firstAttribute="bottom" secondItem="Ijy-hs-dwT" secondAttribute="bottom" id="eCm-P1-g3d"/>
                             <constraint firstItem="5wm-RF-cqh" firstAttribute="top" secondItem="6Qk-zz-kDd" secondAttribute="bottom" constant="8" id="gVx-JX-2td"/>
                             <constraint firstItem="KiI-jF-aw5" firstAttribute="top" secondItem="Ijy-hs-dwT" secondAttribute="top" id="jux-Kt-gTs"/>
                             <constraint firstItem="jwV-96-dfz" firstAttribute="top" secondItem="Ijy-hs-dwT" secondAttribute="top" constant="71" id="oSz-2G-Prt"/>
@@ -320,7 +309,6 @@
                     <connections>
                         <outlet property="addButton" destination="5wm-RF-cqh" id="BUU-dt-v84"/>
                         <outlet property="list" destination="m4F-Sk-J4F" id="9Ck-Bo-VK1"/>
-                        <outlet property="tabBar" destination="IQp-7L-RXx" id="5Me-nf-cx3"/>
                         <outlet property="userInput" destination="jwV-96-dfz" id="NzO-kI-9L0"/>
                     </connections>
                 </viewController>
@@ -437,7 +425,7 @@
                                 </state>
                                 <connections>
                                     <action selector="accountCreate:" destination="frm-TI-dQW" eventType="touchUpInside" id="QHZ-YH-mxb"/>
-                                    <segue destination="49a-LM-tSk" kind="show" identifier="signProfile" id="2RS-kD-eX3"/>
+                                    <segue destination="pyi-9p-Sa5" kind="show" identifier="signupIdentifier" id="Ldg-YW-gL2"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tqx-so-5rn">
@@ -698,10 +686,11 @@
             </objects>
             <point key="canvasLocation" x="4534" y="869"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Groups-->
         <scene sceneID="F4b-Sz-2eK">
             <objects>
                 <navigationController id="7G9-Un-f12" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Groups" id="Am6-4a-5Y4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="srb-tJ-9eu">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -719,13 +708,9 @@
             <point key="canvasLocation" x="3583" y="77"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="logo" width="198" height="255"/>
-    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="0B3-sk-ESC"/>
         <segue reference="wGu-af-sub"/>
-        <segue reference="Fw3-JR-Nwv"/>
-        <segue reference="Wg8-Fn-v0m"/>
+        <segue reference="8lU-Pi-ImR"/>
+        <segue reference="1YS-Ty-Kti"/>
     </inferredMetricsTieBreakers>
 </document>

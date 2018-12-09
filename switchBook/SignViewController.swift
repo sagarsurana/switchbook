@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseUI
 
 class SignViewController: UIViewController {
 
@@ -76,61 +77,11 @@ class SignViewController: UIViewController {
                 self.present(alert, animated: true, completion: nil)
             
         } else {
-            //BEFORE LESE THISIS WILL BE AN ELSE IF
-            //ANOTHER QUERY NEEDS TO BE RU HERE TO PUT EVERYTHING IN THE DATABSE AND
-            //ONE MOR ECHECK HAS TO BE MADE MAKING SURE SUCH A USERNAME OR PASSWORD ISNOT ALREADY PRESENT IN THE DATABASE OTHERWISE THEY HAVE TO THINK OF A NEW PASSWORD
-            /*
- 
-             LOGIC FOR THAT
-             RUN QUERY TO SEE IF USERNAME ADN PASSWORD EXISTS LIKE
-             SELECT COUNT(USERNAME)
-             FROM LOGINTABLE
-             WHERE PASSWORD  = (password.text)!
-             
-             
-             
-             IF THE COUNT IS GRETAER THAN 0, THIS ALREADY EXISTS
-             SAME LOGIC FOR USERNAME
-             
-             ALERT WHICH WILL BE SHOWN UPON  THIS
-             
-             let alert = UIAlertController(title: "PASSWORD EXITS", message: "TPLEASE CHOOSE ANOTHER PASSWORD", preferredStyle: UIAlertController.Style.alert)
-             
-             // add an action (button)
-             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-             
-             // show the alert
-             self.present(alert, animated: true, completion: nil)
-             
-             
-             SELECT COUNT(USERNAME)
-             FROM LOGINTABLE
-             WHERE PASSWORD  = (username.text)!
-             
-             
-             ALERT WHICH WILL BE SHOWN UPON  THIS
-             
-             let alert = UIAlertController(title: "USERNAME EXITS", message: "TPLEASE CHOOSE ANOTHER USERNAME", preferredStyle: UIAlertController.Style.alert)
-             
-             // add an action (button)
-             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-             
-             // show the alert
-             self.present(alert, animated: true, completion: nil)
-             
-             
-             ELSE GO TO PROFILE PAGE WITH SEGUE CARRYING INFO  : USERNAME
-             */
+            
+            Auth.auth().createUser(withEmail: email.text!, password: password.text!) { (authResult, error) in
+                guard let user = authResult?.user else { return }
+            }
+            self.performSegue(withIdentifier: "signupIdentifier", sender: self)
         }
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
