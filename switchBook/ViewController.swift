@@ -19,7 +19,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         Auth.auth().addStateDidChangeListener { auth, user in
             if user != nil {
-                print(user?.email!)
                 // User is signed in.
                 if let tabViewController = self.storyboard?.instantiateViewController(withIdentifier: "TabBarController") as? UITabBarController {
                     self.present(tabViewController, animated: false, completion: nil)
