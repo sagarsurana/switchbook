@@ -39,68 +39,28 @@ class GroupTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        var groupName = cell.textLabel?.text
-        groupName = groups[indexPath.row]
-        
-        let groupData = ref.child("users").ref.childByAutoId()
-        
-        
-        //TODO: ADD Intial Notficiation Date Here AS Date not timestamp
-        groupData.setValue(["members": "", "name": groupName, "date": Date().timeIntervalSince1970])
-            // ServerValue.timestamp()]
-        
-        groupID = groupData.key!
-        
-//        if email account is created in Auth {
-//              if email is already in members {
-//                  error {
-//                  print("Member already in group")
-//                  return }
-//              } else {
-//                  add email to the group
-//        groupData.updateChildValues(["members" : mem])
-//        } else {
-//                  error {
-//                  print("Email does not exist")
-//                  return }
-//    }
-        
-        groupData.updateChildValues(["members" : members])
-        
-        sendNotification(Date: Date())
+        var groupName = cell.textLabel?.text = groups[indexPath.row]
         return cell
     }
     // Sends notifications to prompt user to open the app
-    func sendNotification(Date: Date){
-        let content = UNMutableNotificationContent()
-        content.title = "You have been matched!"
-        content.body = "Open the app to see details of the recipient reader."
-        content.sound = UNNotificationSound.default
-        
-        var components = DateComponents()
-        components.year = Calendar.current.component(.year, from: Date)
-        components.month = Calendar.current.component(.month, from: Date)
-        components.day = Calendar.current.component((.day), from: Date)
-        components.hour = Calendar.current.component(.hour, from: Date)
-        components.minute = Calendar.current.component(.minute, from: Date) + 1
-        
-        
-        let tigger = UNCalendarNotificationTrigger(dateMatching: components , repeats: true)
-        let request = UNNotificationRequest(identifier: "testIdentifier", content: content, trigger: tigger)
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
-    }
-
-    
-    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        // Create a variable that you want to send
-        var gID = groupID
-        
-        // Create a new variable to store the instance
-        let destinationVC : SignViewController = segue.destination as! SignViewController
-        destinationVC.groupID = [gID]
-    }
-
+//    func sendNotification(Date: Date){
+//        let content = UNMutableNotificationContent()
+//        content.title = "You have been matched!"
+//        content.body = "Open the app to see details of the recipient reader."
+//        content.sound = UNNotificationSound.default
+//
+//        var components = DateComponents()
+//        components.year = Calendar.current.component(.year, from: Date)
+//        components.month = Calendar.current.component(.month, from: Date)
+//        components.day = Calendar.current.component((.day), from: Date)
+//        components.hour = Calendar.current.component(.hour, from: Date)
+//        components.minute = Calendar.current.component(.minute, from: Date) + 1
+//
+//
+//        let tigger = UNCalendarNotificationTrigger(dateMatching: components , repeats: true)
+//        let request = UNNotificationRequest(identifier: "testIdentifier", content: content, trigger: tigger)
+//        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+//    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "groupDetail", sender: self)

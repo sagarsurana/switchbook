@@ -12,6 +12,12 @@ import FirebaseDatabase
 class AddGroupViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var addPerson: UIButton!
+    @IBOutlet weak var addGroupButton: UIButton!
+    @IBOutlet weak var addName: UITextField!
+    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var person: UITextField!
+    var persons : [String] = []
+    var groupID = ""
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -32,22 +38,42 @@ class AddGroupViewController: UIViewController, UITableViewDelegate, UITableView
         }
     }
     
-    var persons : [String] = []
-    
     @IBAction func addGroup(_ sender: Any) {
+        let ref = Database.database().reference()
+        let groupData = ref.child("groups").childByAutoId()
         
+        var personDict: [String: Bool] = [:]
+        for person in persons {
+            personDict[person] = false
+            
+        }
+        //TODO: ADD Intial Notficiation Date Here AS Date not timestamp
+        groupData.setValue(["members": personDict, "name": addName.text!, "date": Date().timeIntervalSince1970])
+        // ServerValue.timestamp()]
         
+        groupID = groupData.key!
         
+        //        if email account is created in Auth {
+        //              if email is already in members {
+        //                  error {
+        //                  print("Member already in group")
+        //                  return }
+        //              } else {
+        //                  add email to the group
+        //        groupData.updateChildValues(["members" : mem])
+        //        } else {
+        //                  error {
+        //                  print("Email does not exist")
+        //                  return }
+        //    }
+        performSegue(withIdentifier: "groupAdded", sender: self)
     }
     
     @IBAction func addPerson(_ sender: Any) {
         persons.append(person.text ?? "")
-        
         tableView.insertRows(at: [IndexPath(row: persons.count - 1, section: 0)], with: .automatic)
     }
-    
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var person: UITextField!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self

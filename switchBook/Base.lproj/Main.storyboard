@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -775,6 +775,7 @@
                                 </state>
                                 <connections>
                                     <action selector="addGroup:" destination="kqy-Qn-IbU" eventType="touchUpInside" id="rIc-5s-nqk"/>
+                                    <segue destination="7G9-Un-f12" kind="show" identifier="groupAdded" id="Ct9-mT-kWM"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tdy-fv-urg">
@@ -796,6 +797,8 @@
                         <viewLayoutGuide key="safeArea" id="THp-Qi-Um0"/>
                     </view>
                     <connections>
+                        <outlet property="addGroupButton" destination="eHs-5G-bRP" id="LWg-2y-nde"/>
+                        <outlet property="addName" destination="4B0-xC-oQU" id="VxZ-42-eHK"/>
                         <outlet property="addPerson" destination="tdy-fv-urg" id="5oU-JX-UfM"/>
                         <outlet property="person" destination="jhh-Al-0XR" id="DQ5-vd-nBU"/>
                         <outlet property="tableView" destination="GRC-W1-O6S" id="47f-AR-Jsh"/>
@@ -837,6 +840,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="Ct9-mT-kWM"/>
         <segue reference="dWs-rD-3Bh"/>
         <segue reference="0Gv-jS-OPj"/>
         <segue reference="8lU-Pi-ImR"/>
