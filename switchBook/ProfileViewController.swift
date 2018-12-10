@@ -66,11 +66,11 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
             
             // Create a variable that you want to send
-            let books = userBook
+            let bookList = books
             
             // Create a new variable to store the instance
             let destinationVC : SignViewController = segue.destination as! SignViewController
-            destinationVC.books = userBook
+            destinationVC.book = bookList
         }
 
         

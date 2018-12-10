@@ -12,10 +12,14 @@ import UserNotifications
 
 class GroupTableViewController: UITableViewController {
     
-    var groups = ["Family", "Friends", "Club"];
+//    var groups = ["Family", "Friends", "Club"];
+    
+//    @IBOutlet weak var addGroup: UIBarButtonItem!
+    
+    var groups : [String] = []
     var groupID = String()
     var ref: DatabaseReference!
-    var mem = String()
+    var members : [String] = []
     
     override func viewDidLoad() {
         ref = Database.database().reference()
@@ -35,13 +39,14 @@ class GroupTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.textLabel?.text = groups[indexPath.row]
+        var groupName = cell.textLabel?.text
+        groupName = groups[indexPath.row]
         
         let groupData = ref.child("users").ref.childByAutoId()
         
         
         //TODO: ADD Intial Notficiation Date Here AS Date not timestamp
-        groupData.setValue(["members": "", "name": cell.textLabel?.text as Any, "date": Date().timeIntervalSince1970])
+        groupData.setValue(["members": "", "name": groupName, "date": Date().timeIntervalSince1970])
             // ServerValue.timestamp()]
         
         groupID = groupData.key!
@@ -60,7 +65,7 @@ class GroupTableViewController: UITableViewController {
 //                  return }
 //    }
         
-        groupData.updateChildValues(["members" : mem])
+        groupData.updateChildValues(["members" : members])
         
         sendNotification(Date: Date())
         return cell
@@ -89,11 +94,11 @@ class GroupTableViewController: UITableViewController {
     func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         // Create a variable that you want to send
-        let gID = self.groupID
+        var gID = groupID
         
         // Create a new variable to store the instance
         let destinationVC : SignViewController = segue.destination as! SignViewController
-        destinationVC.gID = groupID
+        destinationVC.groupID = [gID]
     }
 
     

@@ -11,8 +11,8 @@ import UIKit
 
 class GroupDetailTableViewController: UITableViewController {
 
-    var members = ["Dad", "Mom", "Allen"]
-    var member = String()
+//    var members = ["Dad", "Mom", "Allen"]
+    var members : [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,8 +25,7 @@ class GroupDetailTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        member = (cell.textLabel?.text)!
-        member = members[indexPath.row]
+        cell.textLabel?.text = members[indexPath.row]
         
         return cell
     }
@@ -34,11 +33,11 @@ class GroupDetailTableViewController: UITableViewController {
     func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         // Create a variable that you want to send
-        var mem = member
+        var mem = members
         
         // Create a new variable to store the instance
         let destinationVC : GroupTableViewController = segue.destination as! GroupTableViewController
-        destinationVC.mem = member
+        destinationVC.members = mem
     }
     
     // Override to support editing the table view.
@@ -48,4 +47,4 @@ class GroupDetailTableViewController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
-}
+} // user data not being pushed

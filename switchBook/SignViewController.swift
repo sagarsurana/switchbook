@@ -10,8 +10,8 @@ import FirebaseDatabase
 class SignViewController: UIViewController {
     
     var ref: DatabaseReference!
-    var gID = String()
-    var books = String()
+    var groupID : [String] = []
+    var book : [String] = []
 //    let books
 //    let groups : [String] = []
     
@@ -85,7 +85,7 @@ class SignViewController: UIViewController {
 
             let childID = userData.key
             
-            userData.updateChildValues(["groups" : gID, "book" : books])
+            userData.updateChildValues(["groups" : groupID, "book" : book])
             
 //            userData.child("books").setValue("book1")
             

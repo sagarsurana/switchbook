@@ -47,4 +47,9 @@ class LoginViewController: UIViewController {
             }
         }
     }
+    
+    @IBAction func BackToSignUp(_ sender: Any) {
+        performSegue(withIdentifier: "BackToSignUp", sender: self)
+    }
+    
 }
