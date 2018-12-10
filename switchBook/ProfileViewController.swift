@@ -3,11 +3,12 @@
 //  switchBook
 
 import UIKit
-import FirebaseDatabase
-    
+//import FirebaseDatabase
+
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    var ref: DatabaseReference!
+//    var ref: DatabaseReference!
     public var books: [String] = []
+    var userBook : String = ""
     @IBOutlet weak var userInput: UITextField!
     
     @IBOutlet weak var profileName: UILabel!
@@ -56,11 +57,26 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             
         } else {
-            ref = Database.database().reference()
-            
-            books.append(userInput.text ?? "")
+//            ref = Database.database().reference()
+            userBook = userInput.text ?? ""
+            books.append(userBook)
             list.insertRows(at: [IndexPath(row: books.count - 1, section: 0)], with: .automatic)
-            ref.child("users").child("user_information").setValue(["List": userInput.text])
+        }
+        
+        func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+            
+            // Create a variable that you want to send
+            let books = userBook
+            
+            // Create a new variable to store the instance
+            let destinationVC : SignViewController = segue.destination as! SignViewController
+            destinationVC.books = userBook
+        }
+
+        
+        
+            
+//            ref.child("users").child("user_information").setValue(["List": userInput.text])
 
          // API NOT WORKING!
             
@@ -123,6 +139,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 //            }
 //            task.resume()
 
-        }
+        
     }
 }

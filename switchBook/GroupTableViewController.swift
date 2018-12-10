@@ -12,9 +12,11 @@ import FirebaseDatabase
 class GroupTableViewController: UITableViewController {
     
     var groups = ["Family", "Friends", "Club"];
+    var groupID : String = ""
     var ref: DatabaseReference!
     
     override func viewDidLoad() {
+        ref = Database.database().reference()
         super.viewDidLoad()
 
 
@@ -41,11 +43,27 @@ class GroupTableViewController: UITableViewController {
         let cell = UITableViewCell()
         cell.textLabel?.text = groups[indexPath.row]
         
-        ref = Database.database().reference()
-        ref.child("users").ref.child("group_members").setValue([cell.textLabel?.text])
+        let groupData = ref.child("users").ref.childByAutoId()
+        
+        groupData.setValue(["members": "", "name": cell.textLabel?.text as Any, "date": NSDate().timeIntervalSince1970])
+        
+        groupID = groupData.key!
+        
+        groupData.child("members").setValue("member1")
         
         return cell
     }
+    
+    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        // Create a variable that you want to send
+        let gID = self.groupID
+        
+        // Create a new variable to store the instance
+        let destinationVC : SignViewController = segue.destination as! SignViewController
+        destinationVC.gID = groupID
+    }
+
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "groupDetail", sender: self)
