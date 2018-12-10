@@ -79,15 +79,11 @@ class SignViewController: UIViewController {
             
             ref = Database.database().reference()
             
-            let userData = ref.child("users").childByAutoId()
+            let userData = ref.child("users").child(email.text!)
             
-            userData.setValue(["name": name.text, "email": email.text, "age": age.text, "address": address.text, "zip": zip.text]) 
-
-            let childID = userData.key
+            userData.setValue(["name": name.text, "email": email.text, "age": age.text, "address": address.text, "zip": zip.text])
             
             userData.updateChildValues(["groups" : groupID, "book" : book])
-            
-//            userData.child("books").setValue("book1")
             
             self.performSegue(withIdentifier: "signupIdentifier", sender: self)
             

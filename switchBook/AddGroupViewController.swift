@@ -41,7 +41,8 @@ class AddGroupViewController: UIViewController, UITableViewDelegate, UITableView
     @IBAction func addGroup(_ sender: Any) {
         let ref = Database.database().reference()
         let groupData = ref.child("groups").childByAutoId()
-        
+        let userData = ref.child("users")
+        groupID = groupData.key!
         var personDict: [String: Bool] = [:]
         for person in persons {
             personDict[person] = false
@@ -51,7 +52,8 @@ class AddGroupViewController: UIViewController, UITableViewDelegate, UITableView
         groupData.setValue(["members": personDict, "name": addName.text!, "date": Date().timeIntervalSince1970])
         // ServerValue.timestamp()]
         
-        groupID = groupData.key!
+        
+        
         
         //        if email account is created in Auth {
         //              if email is already in members {
