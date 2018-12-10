@@ -39,10 +39,7 @@ class AddGroupViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @IBAction func addPerson(_ sender: Any) {
-        //check if email exists in users
         persons.append(person.text ?? "")
-        
-    
         
         tableView.insertRows(at: [IndexPath(row: persons.count - 1, section: 0)], with: .automatic)
     }

@@ -10,8 +10,8 @@ import FirebaseDatabase
 class SignViewController: UIViewController {
     
     var ref: DatabaseReference!
-    var gID: String = ""
-    var books: String = ""
+    var gID = String()
+    var books = String()
 //    let books
 //    let groups : [String] = []
     

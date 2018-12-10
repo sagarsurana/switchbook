@@ -12,26 +12,19 @@ import FirebaseDatabase
 class GroupTableViewController: UITableViewController {
     
     var groups = ["Family", "Friends", "Club"];
-    var groupID : String = ""
+    var groupID = String()
     var ref: DatabaseReference!
+    var mem = String()
     
     override func viewDidLoad() {
         ref = Database.database().reference()
         super.viewDidLoad()
-
-
-        
-//        ref.child("groups").child("group_name").setValue(groups)
-//        self.ref.child("users").child(users.uid).setValue(["members": "member1"])
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-
-        
-
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -45,11 +38,25 @@ class GroupTableViewController: UITableViewController {
         
         let groupData = ref.child("users").ref.childByAutoId()
         
-        groupData.setValue(["members": "", "name": cell.textLabel?.text as Any, "date": NSDate().timeIntervalSince1970])
+        groupData.setValue(["members": "", "name": cell.textLabel?.text as Any, "date": NSDate()])
         
         groupID = groupData.key!
         
-        groupData.child("members").setValue("member1")
+//        if email account is created in Auth {
+//              if email is already in members {
+//                  error {
+//                  print("Member already in group")
+//                  return }
+//              } else {
+//                  add email to the group
+//        groupData.updateChildValues(["members" : mem])
+//        } else {
+//                  error {
+//                  print("Email does not exist")
+//                  return }
+//    }
+        
+        groupData.updateChildValues(["members" : mem])
         
         return cell
     }
@@ -79,8 +86,4 @@ class GroupTableViewController: UITableViewController {
     }
     
 }
-
-
-// create the ref to the database in one spot and then export that var value to see in the others - create a var value for ref.child("group").child(autoid?????)
-// then set value in different spots - timestamp when group is created, the group members, the group name, the list of books,
-// understand how to update the database - if a group is deleted!!
+// field boolean - either matched or not matched group ID in members make that a key - the email value will be true or false - whether it chosen or not - true is when its chosen -

@@ -10,10 +10,9 @@ import UIKit
 //import FirebaseDatabase
 
 class GroupDetailTableViewController: UITableViewController {
-    
-//    var memberRef: DatabaseReference!
+
     var members = ["Dad", "Mom", "Allen"]
-    //  gro
+    var member = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,13 +23,22 @@ class GroupDetailTableViewController: UITableViewController {
         return members.count
     }
     
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
-        cell.textLabel?.text = members[indexPath.row]
+        member = (cell.textLabel?.text)!
+        member = members[indexPath.row]
         
-//        groupRef.setValue(["members": members, "time_created": Int(NSDate.timeIntervalSinceReferenceDate*1000), ])
         return cell
+    }
+    
+    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        // Create a variable that you want to send
+        var mem = member
+        
+        // Create a new variable to store the instance
+        let destinationVC : GroupTableViewController = segue.destination as! GroupTableViewController
+        destinationVC.mem = member
     }
     
     // Override to support editing the table view.
