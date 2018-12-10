@@ -13,6 +13,8 @@ import FirebaseDatabase
 
 class NotificationViewController: UIViewController {
     
+    @IBOutlet weak var NotificationTable: UITableView!
+    
     
     var matchID: String = ""
     var allNotifications : [NotificationData] = []
@@ -20,7 +22,9 @@ class NotificationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         var ref = Database.database().reference()
-        var groupNames = ["Family", "Friends", "Club"]
+        var groupIDs = ["Family", "Friends", "Club"]
+        var memberIDs : [String] = []
+        var memberID : String = ""
         let unixTimeStamp = TimeInterval(Date().timeIntervalSince1970)
         var currentDateTime = Date(timeIntervalSince1970: unixTimeStamp)
         print("Current date-time: \(currentDateTime)")
@@ -28,8 +32,13 @@ class NotificationViewController: UIViewController {
         
         
         
-        // Get list of group names for user and populate groupNames array
+        // Get list of groupIds  for user and populate groupNames array
             // For Each group create a members array inside for loop
+            // for group in groupIDs{
+                // get members for group
+                // memberIDs = from group Members
+            //}
+        
         // Get Datetime from the Server and update Datetime
         // Get MemberID and store it as MemberId
         
@@ -39,15 +48,21 @@ class NotificationViewController: UIViewController {
         
         //if unixTimeStamp >= dateTime from Firebase{
             // sendNotification
+        // matchingAlgorithm(memberID: memberID, memberIDs: )
+        
             // Update dateTime on Server with +30 days
+        
             // var dateComponent = DateComponents()
             // dateComponent.days = 30
             // var convertedDateTIme = Date(timeIntervalSince1970: dateTime)
             // let futureDate = Calendar.current.date(byAdding: dateComponent, to: convertedDateTime)
             // let futureTimestamp = futureDate.timeIntervalSince1970
-
+            // SET Date-time here
         
         
+        //}
+        //else{
+            
         //}
     }
     
