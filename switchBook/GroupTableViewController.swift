@@ -14,7 +14,7 @@ class GroupTableViewController: UITableViewController {
     
 //    var groups = ["Family", "Friends", "Club"];
     
-//    @IBOutlet weak var addGroup: UIBarButtonItem!
+    @IBOutlet weak var addGroup: UIBarButtonItem!
     
     var groups : [String] = []
     var groupID = String()
