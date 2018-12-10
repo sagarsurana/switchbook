@@ -3,8 +3,28 @@
 //  switchBook
 
 import UIKit
-
+import FirebaseDatabase
+    
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    var profileRef: DatabaseReference!
+    public var books: [String] = []
+    @IBOutlet weak var userInput: UITextField!
+    
+    @IBOutlet weak var profileName: UILabel!
+    @IBOutlet weak var addButton: UIButton!
+    @IBOutlet weak var tabBar: UITabBar!
+    @IBOutlet weak var profileAge: UILabel!
+    @IBOutlet weak var switchedBookName: UILabel!
+    @IBOutlet weak var list: UITableView!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        addButton.layer.cornerRadius = 10
+        addButton.clipsToBounds = true
+        list.delegate = self
+        list.dataSource = self
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return books.count
@@ -15,25 +35,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         cell.textLabel?.text = books[indexPath.row]
         cell.textLabel?.textColor = UIColor(red:0.90, green:0.37, blue:0.33, alpha:1.0)
         return cell
-    }
-    
-    public var books: [String] = []
-    @IBOutlet weak var userInput: UITextField!
-    
-    @IBOutlet weak var profileName: UILabel!
-    @IBOutlet weak var addButton: UIButton!
-    @IBOutlet weak var tabBar: UITabBar!
-    @IBOutlet weak var profileAge: UILabel!
-        
-    @IBOutlet weak var switchedBookName: UILabel!
-    @IBOutlet weak var list: UITableView!
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        addButton.layer.cornerRadius = 10
-        addButton.clipsToBounds = true
-        list.delegate = self
-        list.dataSource = self
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -52,11 +53,14 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             // show the alert
             self.present(alert, animated: true, completion: nil)
+            
+            
         } else {
+            profileRef = Database.database().reference()
             books.append(userInput.text ?? "")
             list.insertRows(at: [IndexPath(row: books.count - 1, section: 0)], with: .automatic)
-            
-            
+            profileRef.child("users").child("user_information").setValue(["List": userInput.text])
+
          // API NOT WORKING!
             
 //            let m  = userInput.text?.replacingOccurrences(of: " ", with: "")
@@ -117,6 +121,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 //                }
 //            }
 //            task.resume()
+
         }
     }
 }

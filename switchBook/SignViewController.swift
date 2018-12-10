@@ -73,7 +73,9 @@ class SignViewController: UIViewController {
             }
             
             ref = Database.database().reference()
-            ref.child("users").child("user_information").setValue(["username": userName.text, "email": email.text, "age": age.text, "address": address.text, "zip": zip.text])
+            
+            ref.child("users").childByAutoId().setValue(["username": userName.text, "email": email.text, "age": age.text, "address": address.text, "zip": zip.text])
+
             
             self.performSegue(withIdentifier: "signupIdentifier", sender: self)
             

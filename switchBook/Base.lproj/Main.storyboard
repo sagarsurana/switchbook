@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -87,7 +87,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Ru-Fu-uaX">
-                                <rect key="frame" x="133" y="78" width="109" height="36"/>
+                                <rect key="frame" x="133" y="122" width="109" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="109" id="Arw-uu-GiH"/>
                                     <constraint firstAttribute="height" constant="36" id="ZdF-CF-XLj"/>
@@ -97,7 +97,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4Jm-Ne-JeG">
-                                <rect key="frame" x="44.5" y="112" width="286" height="30"/>
+                                <rect key="frame" x="44.5" y="156" width="286" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="286" id="Kxj-OQ-TIH"/>
@@ -135,7 +135,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kEP-an-suQ">
-                                <rect key="frame" x="44.5" y="244" width="286" height="30"/>
+                                <rect key="frame" x="44.5" y="288" width="286" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" red="0.9002055846" green="0.3712750105" blue="0.33269193959999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -147,7 +147,7 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fr5-bk-h7x">
-                                <rect key="frame" x="117.5" y="200" width="140" height="36"/>
+                                <rect key="frame" x="117.5" y="244" width="140" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="S59-Tu-OvE"/>
                                     <constraint firstAttribute="width" constant="140" id="smo-9C-x9R"/>
@@ -502,7 +502,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qH8-kh-rLA">
-                                <rect key="frame" x="137" y="539" width="101" height="43"/>
+                                <rect key="frame" x="137" y="588" width="101" height="43"/>
                                 <color key="backgroundColor" red="0.9002055846" green="0.3712750105" blue="0.33269193959999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="101" id="DNL-js-pJr"/>
@@ -517,7 +517,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tqx-so-5rn">
-                                <rect key="frame" x="70.5" y="582" width="234" height="36"/>
+                                <rect key="frame" x="70.5" y="631" width="234" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="234" id="ZRC-j2-ksK"/>
                                 </constraints>
@@ -810,7 +810,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="cKq-rh-4bd"/>
-        <segue reference="8lU-Pi-ImR"/>
-        <segue reference="Wg8-Fn-v0m"/>
+        <segue reference="Ldg-YW-gL2"/>
+        <segue reference="1YS-Ty-Kti"/>
     </inferredMetricsTieBreakers>
 </document>

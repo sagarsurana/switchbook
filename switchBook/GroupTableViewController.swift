@@ -16,7 +16,7 @@ class GroupTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        ref = Database.database().reference()
+
 
         
 //        ref.child("groups").child("group_name").setValue(groups)
@@ -28,7 +28,7 @@ class GroupTableViewController: UITableViewController {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
 
-        ref.child("groups").child("group_name").setValue(groups)
+        
 
     }
     
@@ -40,11 +40,10 @@ class GroupTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         cell.textLabel?.text = groups[indexPath.row]
-
-        //adding the group inside the generated unique key
-//        ref.child("group").child("group name").setValue(cell.textLabel)
         
-
+        ref = Database.database().reference()
+        var groupRef = ref.child("group_members").child((cell.textLabel?.text)!)
+        
         return cell
     }
     
@@ -62,3 +61,8 @@ class GroupTableViewController: UITableViewController {
     }
     
 }
+
+
+// create the ref to the database in one spot and then export that var value to see in the others - create a var value for ref.child("group").child(autoid?????)
+// then set value in different spots - timestamp when group is created, the group members, the group name, the list of books,
+// understand how to update the database - if a group is deleted!!
