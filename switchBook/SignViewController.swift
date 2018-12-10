@@ -81,7 +81,7 @@ class SignViewController: UIViewController {
             
             let userData = ref.child("users").childByAutoId()
             
-            userData.setValue(["name": name.text, "email": email.text, "age": age.text, "address": address.text, "zip": zip.text]) // not sure if the userid can be displayed here
+            userData.setValue(["name": name.text, "email": email.text, "age": age.text, "address": address.text, "zip": zip.text]) 
 
             let childID = userData.key
             

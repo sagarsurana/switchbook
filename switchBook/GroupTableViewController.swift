@@ -38,7 +38,7 @@ class GroupTableViewController: UITableViewController {
         
         let groupData = ref.child("users").ref.childByAutoId()
         
-        groupData.setValue(["members": "", "name": cell.textLabel?.text as Any, "date": NSDate()])
+        groupData.setValue(["members": "", "name": cell.textLabel?.text as Any, "date": ServerValue.timestamp()])
         
         groupID = groupData.key!
         
