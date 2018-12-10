@@ -8,9 +8,12 @@ class ProfileViewController: UIViewController {
     public var books: [String]?
     @IBOutlet weak var userInput: UITextField!
     
+    @IBOutlet weak var profileName: UILabel!
     @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var tabBar: UITabBar!
-    
+    @IBOutlet weak var profileAge: UILabel!
+        
+    @IBOutlet weak var switchedBookName: UILabel!
     @IBOutlet weak var list: UIScrollView!
     
     override func viewDidLoad() {

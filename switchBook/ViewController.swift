@@ -1,10 +1,6 @@
 //
 //  ViewController.swift
 //  switchBook
-//
-//  Created by Aviral Sharma on 11/27/18.
-//  Copyright © 2018 AviralSharma. All rights reserved.
-//
 
 import UIKit
 import FirebaseUI
@@ -19,7 +15,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         Auth.auth().addStateDidChangeListener { auth, user in
             if user != nil {
-                print(user?.email!)
                 // User is signed in.
                 if let tabViewController = self.storyboard?.instantiateViewController(withIdentifier: "TabBarController") as? UITabBarController {
                     self.present(tabViewController, animated: false, completion: nil)
@@ -27,6 +22,9 @@ class ViewController: UIViewController {
             }
         }
         logo.image = UIImage(named: "logo")
+        
+        self.login.layer.cornerRadius = 10
+        self.login.clipsToBounds = true
     }
 
     @IBAction func loginPage(_ sender: Any) {
@@ -36,6 +34,5 @@ class ViewController: UIViewController {
     @IBAction func signInPage(_ sender: Any) {
         performSegue(withIdentifier: "signPage", sender: self)
     }
-    
 }
 
