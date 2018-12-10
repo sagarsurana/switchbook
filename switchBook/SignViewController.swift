@@ -73,15 +73,6 @@ class SignViewController: UIViewController {
             }
             
             ref = Database.database().reference()
-            
-//            let user = Auth.auth().currentUser
-//            if let user = user {
-                // The user's ID, unique to the Firebase project.
-                // Do NOT use this value to authenticate with your backend server,
-                // if you have one. Use getTokenWithCompletion:completion: instead.
-            
-//                let email = user.email
-            
             ref.child("users").child("user_information").setValue(["username": userName.text, "email": email.text, "age": age.text, "address": address.text, "zip": zip.text])
             
             self.performSegue(withIdentifier: "signupIdentifier", sender: self)
