@@ -11,6 +11,7 @@ import FirebaseDatabase
 
 class AddGroupViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    @IBOutlet weak var addPerson: UIButton!
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -20,6 +21,7 @@ class AddGroupViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         cell.textLabel?.text = persons[indexPath.row]
+        cell.textLabel?.textColor = UIColor(red:0.90, green:0.37, blue:0.33, alpha:1.0)
         return cell
     }
     
@@ -37,6 +39,7 @@ class AddGroupViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @IBAction func addPerson(_ sender: Any) {
+        //check if email exists in users
         persons.append(person.text ?? "")
         tableView.insertRows(at: [IndexPath(row: persons.count - 1, section: 0)], with: .automatic)
     }
@@ -47,5 +50,7 @@ class AddGroupViewController: UIViewController, UITableViewDelegate, UITableView
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        addPerson.layer.cornerRadius = 10
+        addPerson.clipsToBounds = true
     }
 }
