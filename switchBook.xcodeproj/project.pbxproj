@@ -13,6 +13,7 @@
 		1BF1EAFA21BC9131005EDF67 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1BF1EAF921BC9131005EDF67 /* GoogleService-Info.plist */; };
 		1BF1EAFC21BC99CA005EDF67 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF1EAFB21BC99CA005EDF67 /* SettingsViewController.swift */; };
 		A2A00724B1069977F4DF2FBC /* Pods_switchBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34EB911F45C807EEA4FF6BCA /* Pods_switchBook.framework */; };
+		A8D5358E21BE733600D8370C /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8D5358D21BE733600D8370C /* NotificationViewController.swift */; };
 		B24C082821AE273500676A39 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24C082721AE273500676A39 /* AppDelegate.swift */; };
 		B24C082A21AE273500676A39 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B24C082921AE273500676A39 /* ViewController.swift */; };
 		B24C082D21AE273500676A39 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B24C082B21AE273500676A39 /* Main.storyboard */; };
@@ -32,6 +33,7 @@
 		34EB911F45C807EEA4FF6BCA /* Pods_switchBook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_switchBook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B79B74C2063045C7A2E6426 /* Pods-switchBook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-switchBook.release.xcconfig"; path = "Pods/Target Support Files/Pods-switchBook/Pods-switchBook.release.xcconfig"; sourceTree = "<group>"; };
 		A3D698F4D2CC0CBA0D894F03 /* Pods-switchBook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-switchBook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-switchBook/Pods-switchBook.debug.xcconfig"; sourceTree = "<group>"; };
+		A8D5358D21BE733600D8370C /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		B24C082421AE273500676A39 /* switchBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = switchBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B24C082721AE273500676A39 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B24C082921AE273500676A39 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 				B24C082E21AE273700676A39 /* Assets.xcassets */,
 				B24C083021AE273700676A39 /* LaunchScreen.storyboard */,
 				B24C083321AE273700676A39 /* Info.plist */,
+				A8D5358D21BE733600D8370C /* NotificationViewController.swift */,
 			);
 			path = switchBook;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A8D5358E21BE733600D8370C /* NotificationViewController.swift in Sources */,
 				1010203E21BB36F900B0D615 /* GroupDetailTableViewController.swift in Sources */,
 				B24C083A21AF626000676A39 /* LoginViewController.swift in Sources */,
 				B24C082A21AE273500676A39 /* ViewController.swift in Sources */,
@@ -418,7 +422,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3SKE53W6G5;
+				DEVELOPMENT_TEAM = 2745B5XCV5;
 				INFOPLIST_FILE = switchBook/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -438,7 +442,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3SKE53W6G5;
+				DEVELOPMENT_TEAM = 2745B5XCV5;
 				INFOPLIST_FILE = switchBook/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (

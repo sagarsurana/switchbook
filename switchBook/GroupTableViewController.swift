@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseDatabase
+import UserNotifications
 
 class GroupTableViewController: UITableViewController {
     
@@ -38,7 +39,10 @@ class GroupTableViewController: UITableViewController {
         
         let groupData = ref.child("users").ref.childByAutoId()
         
-        groupData.setValue(["members": "", "name": cell.textLabel?.text as Any, "date": ServerValue.timestamp()])
+        
+        //TODO: ADD Intial Notficiation Date Here AS Date not timestamp
+        groupData.setValue(["members": "", "name": cell.textLabel?.text as Any, "date": Date().timeIntervalSince1970])
+            // ServerValue.timestamp()]
         
         groupID = groupData.key!
         
@@ -58,8 +62,29 @@ class GroupTableViewController: UITableViewController {
         
         groupData.updateChildValues(["members" : mem])
         
+        sendNotification(Date: Date())
         return cell
     }
+    // Sends notifications to prompt user to open the app
+    func sendNotification(Date: Date){
+        let content = UNMutableNotificationContent()
+        content.title = "You have been matched!"
+        content.body = "Open the app to see details of the recipient reader."
+        content.sound = UNNotificationSound.default
+        
+        var components = DateComponents()
+        components.year = Calendar.current.component(.year, from: Date)
+        components.month = Calendar.current.component(.month, from: Date)
+        components.day = Calendar.current.component((.day), from: Date)
+        components.hour = Calendar.current.component(.hour, from: Date)
+        components.minute = Calendar.current.component(.minute, from: Date) + 1
+        
+        
+        let tigger = UNCalendarNotificationTrigger(dateMatching: components , repeats: true)
+        let request = UNNotificationRequest(identifier: "testIdentifier", content: content, trigger: tigger)
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+    }
+
     
     func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         

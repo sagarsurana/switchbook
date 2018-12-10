@@ -87,7 +87,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Ru-Fu-uaX">
-                                <rect key="frame" x="133" y="122" width="109" height="36"/>
+                                <rect key="frame" x="133" y="78" width="109" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="109" id="Arw-uu-GiH"/>
                                     <constraint firstAttribute="height" constant="36" id="ZdF-CF-XLj"/>
@@ -97,7 +97,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4Jm-Ne-JeG">
-                                <rect key="frame" x="44.5" y="156" width="286" height="30"/>
+                                <rect key="frame" x="44.5" y="112" width="286" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="286" id="Kxj-OQ-TIH"/>
@@ -135,7 +135,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kEP-an-suQ">
-                                <rect key="frame" x="44.5" y="288" width="286" height="30"/>
+                                <rect key="frame" x="44.5" y="244" width="286" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" red="0.9002055846" green="0.3712750105" blue="0.33269193959999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -147,7 +147,7 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fr5-bk-h7x">
-                                <rect key="frame" x="117.5" y="244" width="140" height="36"/>
+                                <rect key="frame" x="117.5" y="200" width="140" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="S59-Tu-OvE"/>
                                     <constraint firstAttribute="width" constant="140" id="smo-9C-x9R"/>
@@ -211,7 +211,7 @@
         <!--Notifications-->
         <scene sceneID="9bB-Av-JhO">
             <objects>
-                <viewController id="y2D-Un-hw5" sceneMemberID="viewController">
+                <viewController id="y2D-Un-hw5" customClass="NotificationViewController" customModule="switchBook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="EkP-4l-RQv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
