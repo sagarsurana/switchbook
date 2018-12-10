@@ -6,7 +6,7 @@ import UIKit
 import FirebaseDatabase
     
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-    var profileRef: DatabaseReference!
+    var ref: DatabaseReference!
     public var books: [String] = []
     @IBOutlet weak var userInput: UITextField!
     
@@ -56,10 +56,11 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             
             
         } else {
-            profileRef = Database.database().reference()
+            ref = Database.database().reference()
+            
             books.append(userInput.text ?? "")
             list.insertRows(at: [IndexPath(row: books.count - 1, section: 0)], with: .automatic)
-            profileRef.child("users").child("user_information").setValue(["List": userInput.text])
+            ref.child("users").child("user_information").setValue(["List": userInput.text])
 
          // API NOT WORKING!
             

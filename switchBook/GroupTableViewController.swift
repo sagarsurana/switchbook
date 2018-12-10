@@ -42,7 +42,7 @@ class GroupTableViewController: UITableViewController {
         cell.textLabel?.text = groups[indexPath.row]
         
         ref = Database.database().reference()
-        var groupRef = ref.child("group_members").child((cell.textLabel?.text)!)
+        ref.child("users").ref.child("group_members").setValue([cell.textLabel?.text])
         
         return cell
     }
