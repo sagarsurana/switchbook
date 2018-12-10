@@ -28,6 +28,8 @@ class GroupDetailTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         cell.textLabel?.text = members[indexPath.row]
+        
+//        groupRef.setValue(["members": members, "time_created": Int(NSDate.timeIntervalSinceReferenceDate*1000), ])
         return cell
     }
     

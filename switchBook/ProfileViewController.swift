@@ -3,8 +3,10 @@
 //  switchBook
 
 import UIKit
+import FirebaseDatabase
 
 class ProfileViewController: UIViewController {
+    var profileRef: DatabaseReference!
     public var books: [String]?
     @IBOutlet weak var userInput: UITextField!
     
@@ -13,10 +15,12 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var tabBar: UITabBar!
     @IBOutlet weak var profileAge: UILabel!
         
-    @IBOutlet weak var switchedBookName: UILabel!
+//    @IBOutlet weak var switchedBookName: UILabel!
     @IBOutlet weak var list: UIScrollView!
     
     override func viewDidLoad() {
+        
+        
         super.viewDidLoad()
     }
     
@@ -29,7 +33,11 @@ class ProfileViewController: UIViewController {
             
             // show the alert
             self.present(alert, animated: true, completion: nil)
+            
+            
         } else {
+            profileRef = Database.database().reference()
+            
             let m  = userInput.text?.replacingOccurrences(of: " ", with: "")
             let url = URL(string: "https://www.googleapis.com/books/v1/volumes?q=" + m!)!
             let urlRequest = URLRequest(url: url)
@@ -37,6 +45,8 @@ class ProfileViewController: UIViewController {
             // set up the session
             let config = URLSessionConfiguration.default
             let session = URLSession(configuration: config)
+            
+            profileRef.child("users").child("user_information").setValue(["List": userInput.text])
             
             // make the request
             let task = session.dataTask(with: urlRequest) {
