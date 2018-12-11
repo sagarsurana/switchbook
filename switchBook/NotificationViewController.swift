@@ -132,7 +132,7 @@ struct NotificationData {
 }
 
 /*
- Aviral's comment: firebase isnt working on my laptop
+ Aviral's comment: firebase isnt working on my laptop it says No such module 'FirebaseDatabase'
  
  place to store notification in the string format
  var notifications : [String] = []
