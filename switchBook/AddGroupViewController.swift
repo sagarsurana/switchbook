@@ -41,29 +41,43 @@ class AddGroupViewController: UIViewController, UITableViewDelegate, UITableView
     @IBAction func addGroup(_ sender: Any) {
         let ref = Database.database().reference()
         let groupData = ref.child("groups").childByAutoId()
-//        let userData = ref.child("users")
-//            .child(Auth.auth().currentUser!.uid)
-//            .child("Advertisements")
-//            .queryOrderedByKey()
+        let userData = ref.child("users")
+//            .child(email,)
 //            .observeSingleEvent(of: .value, with: { snapshot in
 //
 //                guard let dict = snapshot.value as? [String:Any] else {
 //                    print("Error")
 //                    return
 //                }
-//                let imageAd = dict["imageAd"] as? String
+//                let imageAd = dict["imageAd"] as?
 //                let priceAd = dict["priceAd"] as? String
 //            })
         groupID = groupData.key!
         var personDict: [String: Bool] = [:]
-        for person in persons {
-            personDict[person] = false
-            
-            
+        for personEmail in persons {
+            let emailChanged = personEmail.replacingOccurrences(of: ".", with: ",")
+            personDict[emailChanged] = false
+            var groupArray: [String] = []
+            userData
+                .child(emailChanged)
+                .observeSingleEvent(of: .value, with: { (snapshot) in
+                    print(snapshot.value!)
+                    guard let userDict = snapshot.value as? [String:Any] else {
+                        print("errrorrr")
+                        return
+                    }
+                    print(userDict["groups"])
+                    if userDict["groups"] != nil {
+                        groupArray = userDict["groups"] as! [String]
+                    }
+                    groupArray.append(self.groupID)
+                    print(groupArray)
+                })
+            print(groupArray)
+            userData.child(emailChanged).updateChildValues(["groups" : groupArray])
         }
-        //TODO: ADD Intial Notficiation Date Here AS Date not timestamp
+        
         groupData.setValue(["members": personDict, "name": addName.text!, "date": Date().timeIntervalSince1970])
-        // ServerValue.timestamp()]
         
         
         

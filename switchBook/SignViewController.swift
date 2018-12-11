@@ -80,10 +80,7 @@ class SignViewController: UIViewController {
             ref = Database.database().reference()
             let emailChanged = email.text!.replacingOccurrences(of: ".", with: ",")
             let userData = ref.child("users").child(emailChanged)
-            
-            userData.setValue(["name": name.text, "email": email.text, "age": age.text, "address": address.text, "zip": zip.text])
-            
-            userData.updateChildValues(["groups" : groupID, "book" : book])
+            userData.setValue(["name": name.text!, "email": email.text!, "age": age.text!, "address": address.text!, "zip": zip.text!, "groups": [], "book": []])
             
             self.performSegue(withIdentifier: "signupIdentifier", sender: self)
             
