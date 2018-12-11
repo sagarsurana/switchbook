@@ -34,6 +34,7 @@ class SignViewController: UIViewController {
     @IBOutlet weak var haveAccount: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboard()
     }
     
     @IBAction func haveAccount(_ sender: Any) {
@@ -41,7 +42,6 @@ class SignViewController: UIViewController {
     }
     
     @IBAction func accountCreate(_ sender: Any) {
-
         if((name.text?.isEmpty)! || (email.text?.isEmpty)! || (password.text?.isEmpty)! || (retypedPassword.text?.isEmpty)! || (age.text?.isEmpty)! || (address.text?.isEmpty)! || (zip.text?.isEmpty)!) {
                 // create the alert
                 let alert = UIAlertController(title: "Incorrect Details", message: "One of the fields is empty", preferredStyle: UIAlertController.Style.alert)
@@ -71,26 +71,33 @@ class SignViewController: UIViewController {
                 self.present(alert, animated: true, completion: nil)
         } else {
             Auth.auth().createUser(withEmail: email.text!, password: password.text!) { (authResult, error) in
-                
                 guard let user = authResult?.user else {
                     print("noo")
-                    print(error?.localizedDescription)
                     return
-                    
                 }
                 self.uid = user.uid
                 print(self.email.text! + " HEREE")
-
             }
-            
             ref = Database.database().reference()
             let emailChanged = email.text!.replacingOccurrences(of: ".", with: ",")
             let userData = ref.child("users").child(emailChanged)
-            userData.setValue(["name": name.text!, "email": email.text!, "age": age.text!, "address": address.text!, "zip": zip.text!, "groups": [], "book": []])
-            
+            userData.setValue(["name": name.text!, "email": email.text!, "age": age.text!, "address": address.text!, "zip": zip.text!])
             self.performSegue(withIdentifier: "signupIdentifier", sender: self)
-            
-
         }
+    }
+}
+
+extension UIViewController {
+    func hideKeyboard() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(UIViewController.dismissKeyboard))
+        
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard(){
+        view.endEditing(true)
     }
 }

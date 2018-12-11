@@ -3,13 +3,15 @@
 //  switchBook
 
 import UIKit
-//import FirebaseDatabase
+import FirebaseDatabase
+import Firebase
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 //    var ref: DatabaseReference!
     public var books: [String] = []
     var userBook : String = ""
     @IBOutlet weak var userInput: UITextField!
+    @IBOutlet weak var age: UILabel!
     
     @IBOutlet weak var profileName: UILabel!
     @IBOutlet weak var addButton: UIButton!
@@ -20,10 +22,22 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboard()
         addButton.layer.cornerRadius = 10
         addButton.clipsToBounds = true
         list.delegate = self
         list.dataSource = self
+        let currentEmail = Auth.auth().currentUser?.email?.replacingOccurrences(of: ".", with: ",")
+        let userData = Database.database().reference().child("users").child(currentEmail!)
+            userData.observeSingleEvent(of: .value, with: { (snapshot) in
+                print(snapshot.value!)
+                guard let userDict = snapshot.value as? [String:Any] else {
+                    print("errrorrr")
+                    return
+                }
+                self.profileName.text = userDict["name"] as? String
+                self.age.text = userDict["age"] as? String
+        })
     }
     
     

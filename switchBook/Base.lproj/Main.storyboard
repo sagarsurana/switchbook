@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -245,40 +245,26 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nTh-lQ-f1j">
-                                <rect key="frame" x="157" y="318" width="60" height="30"/>
+                                <rect key="frame" x="142" y="42" width="91" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Sign Out">
-                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleColor" red="0.90196078430000004" green="0.37254901959999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
                                     <action selector="signOutPressed:" destination="RYC-cS-QQn" eventType="touchUpInside" id="GOT-IR-Or2"/>
                                     <segue destination="BYZ-38-t0r" kind="show" identifier="signedOutIdentifier" id="ELt-0C-S4t"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Settings" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uvr-0g-Ujj">
-                                <rect key="frame" x="142" y="51" width="91" height="35"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="0un-NB-Tko"/>
-                                    <constraint firstAttribute="width" constant="91" id="yEo-8W-vnx"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="25"/>
-                                <color key="textColor" red="0.90196078430000004" green="0.37254901959999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="Uvr-0g-Ujj" firstAttribute="top" secondItem="aok-G3-wRt" secondAttribute="top" constant="31" id="82T-ro-ym1"/>
-                            <constraint firstItem="Uvr-0g-Ujj" firstAttribute="centerX" secondItem="YoL-b1-5kU" secondAttribute="centerX" id="D7o-YZ-WKV"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="aok-G3-wRt"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Settings" id="07U-1r-E6t"/>
+                    <tabBarItem key="tabBarItem" title="Sign Out" id="07U-1r-E6t"/>
                     <navigationItem key="navigationItem" title="Settings" id="IYj-KF-JAT"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="30A-Ib-8hF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="84" y="-815"/>
+            <point key="canvasLocation" x="84" y="-815.44227886056979"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="46E-R0-bNO">
@@ -292,9 +278,10 @@
                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="Hmc-SF-b0m" kind="relationship" relationship="viewControllers" id="XRj-ln-gAd"/>
                         <segue destination="y2D-Un-hw5" kind="relationship" relationship="viewControllers" id="wXH-ze-0Rf"/>
                         <segue destination="RYC-cS-QQn" kind="relationship" relationship="viewControllers" id="FeI-G1-x7V"/>
+                        <segue destination="49a-LM-tSk" kind="relationship" relationship="viewControllers" id="Oaz-sM-PMI"/>
+                        <segue destination="QfM-RG-hM5" kind="relationship" relationship="viewControllers" id="eO4-Rp-TR7"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TWH-du-uEF" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -331,7 +318,7 @@
                                     <constraint firstAttribute="width" constant="66" id="0M4-ym-4BD"/>
                                     <constraint firstAttribute="height" constant="31" id="ZO5-oh-HfT"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="22"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                 <color key="textColor" red="0.9002055846" green="0.3712750105" blue="0.33269193959999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -341,17 +328,17 @@
                                     <constraint firstAttribute="width" constant="47" id="VCg-03-I9D"/>
                                     <constraint firstAttribute="height" constant="31" id="gLK-NY-sAl"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="22"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                 <color key="textColor" red="0.9002055846" green="0.3712750105" blue="0.33269193959999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="temp" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lI6-EW-kns">
-                                <rect key="frame" x="96" y="99" width="65" height="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="temp" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lI6-EW-kns">
+                                <rect key="frame" x="96" y="99" width="106" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="65" id="kCC-Wg-zXK"/>
                                     <constraint firstAttribute="height" constant="18" id="pi7-Mr-7UV"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="22"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                 <color key="textColor" red="0.90196078430000004" green="0.37254901959999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -386,7 +373,7 @@
                                     <constraint firstAttribute="height" constant="18" id="ce4-pg-prF"/>
                                     <constraint firstAttribute="width" constant="62" id="dM6-hp-6aN"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="22"/>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                 <color key="textColor" red="0.90196078430000004" green="0.37254901959999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -446,6 +433,7 @@
                     <navigationItem key="navigationItem" title="Profile" id="EVj-C7-cWX"/>
                     <connections>
                         <outlet property="addButton" destination="5wm-RF-cqh" id="BUU-dt-v84"/>
+                        <outlet property="age" destination="Oa2-zi-Vdg" id="7Ec-ay-l2e"/>
                         <outlet property="list" destination="5bC-1V-2Rz" id="B4e-5z-kz1"/>
                         <outlet property="profileAge" destination="Oa2-zi-Vdg" id="pq2-cK-WgP"/>
                         <outlet property="profileName" destination="lI6-EW-kns" id="5rO-u3-ehD"/>
@@ -709,6 +697,23 @@
             <point key="canvasLocation" x="1197.5999999999999" y="1132.9835082458771"/>
         </scene>
         <!--Groups-->
+        <scene sceneID="SSm-ae-0Ww">
+            <objects>
+                <navigationController id="QfM-RG-hM5" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Groups" id="KIN-Wq-RIf"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="pn7-hI-vzE">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Hmc-SF-b0m" kind="relationship" relationship="rootViewController" id="2YT-6u-O0D"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="K4G-t5-Aer" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3551" y="77"/>
+        </scene>
+        <!--Groups-->
         <scene sceneID="A82-F9-i9U">
             <objects>
                 <tableViewController title="Groups" id="Hmc-SF-b0m" customClass="GroupTableViewController" customModule="switchBook" customModuleProvider="target" sceneMemberID="viewController">
@@ -716,23 +721,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="separatorColor" red="0.90196078430000004" green="0.37254901959999998" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <connections>
                             <outlet property="dataSource" destination="Hmc-SF-b0m" id="EGU-3l-syK"/>
                             <outlet property="delegate" destination="Hmc-SF-b0m" id="Q25-DI-YoV"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="Notifications" id="i2k-7o-dsL"/>
+                    <tabBarItem key="tabBarItem" title="Groups" id="i2k-7o-dsL"/>
                     <navigationItem key="navigationItem" title="Groups" id="zeg-X6-Uv0">
-                        <barButtonItem key="rightBarButtonItem" title="+" id="EDs-d8-u6F">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <barButtonItem key="rightBarButtonItem" title="Add" id="zJC-V5-uDF">
                             <connections>
-                                <action selector="addGroup:" destination="Hmc-SF-b0m" id="sQd-Ml-nKU"/>
-                                <segue destination="kqy-Qn-IbU" kind="show" id="wzl-nH-Ji2"/>
+                                <segue destination="kqy-Qn-IbU" kind="show" id="aeG-gH-Xe6"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="addGroup" destination="EDs-d8-u6F" id="Dij-Rb-qob"/>
                         <segue destination="dLX-dD-YnR" kind="show" identifier="groupDetail" id="los-nz-oBT"/>
                     </connections>
                 </tableViewController>
@@ -857,9 +860,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="wzl-nH-Ji2"/>
         <segue reference="Zcs-gq-5Le"/>
-        <segue reference="g80-q6-8AQ"/>
+        <segue reference="CIN-0t-xAO"/>
         <segue reference="Ldg-YW-gL2"/>
         <segue reference="1YS-Ty-Kti"/>
     </inferredMetricsTieBreakers>

@@ -15,7 +15,9 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var forgot: UIButton!
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        self.hideKeyboard()
         let authUI = FUIAuth.defaultAuthUI()
         authUI?.delegate = self as? FUIAuthDelegate
         _ = authUI!.authViewController()

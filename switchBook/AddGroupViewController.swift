@@ -20,7 +20,6 @@ class AddGroupViewController: UIViewController, UITableViewDelegate, UITableView
     var persons : [String] = []
     var groupID = ""
     
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return persons.count
     }
@@ -43,19 +42,7 @@ class AddGroupViewController: UIViewController, UITableViewDelegate, UITableView
         let ref = Database.database().reference()
         let groupData = ref.child("groups").childByAutoId()
         let userData = ref.child("users")
-//            .child(email,)
-//            .observeSingleEvent(of: .value, with: { snapshot in
-//
-//                guard let dict = snapshot.value as? [String:Any] else {
-//                    print("Error")
-//                    return
-//                }
-//                let imageAd = dict["imageAd"] as?
-//                let priceAd = dict["priceAd"] as? String
-//            })
         groupID = groupData.key!
-        print(Auth.auth().currentUser?.uid)
-        
         let currentEmail = Auth.auth().currentUser?.email?.replacingOccurrences(of: ".", with: ",")
         print(currentEmail)
         var personDict: [String: Bool] = [(currentEmail)!:false]
@@ -71,35 +58,19 @@ class AddGroupViewController: UIViewController, UITableViewDelegate, UITableView
                         print("errrorrr")
                         return
                     }
-                    print(userDict["groups"])
                     if userDict["groups"] != nil {
                         groupArray = userDict["groups"] as! [String]
                     }
                     groupArray.append(self.groupID)
                     print(groupArray)
                 })
-            print(groupArray)
-            userData.child(emailChanged).setValue(["groups":groupArray])
+            let current = ref.child("user").child(emailChanged)
+            let values = [
+                "groups": "groupArray"
+            ]
+            current.setValue(values)
         }
-        
         groupData.setValue(["members": personDict, "name": addName.text!, "date": Date().timeIntervalSince1970])
-        
-        
-        
-        
-        //        if email account is created in Auth {
-        //              if email is already in members {
-        //                  error {
-        //                  print("Member already in group")
-        //                  return }
-        //              } else {
-        //                  add email to the group
-        //        groupData.updateChildValues(["members" : mem])
-        //        } else {
-        //                  error {
-        //                  print("Email does not exist")
-        //                  return }
-        //    }
         performSegue(withIdentifier: "groupAdded", sender: self)
     }
     
@@ -110,6 +81,7 @@ class AddGroupViewController: UIViewController, UITableViewDelegate, UITableView
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.hideKeyboard()
         tableView.delegate = self
         tableView.dataSource = self
         addPerson.layer.cornerRadius = 10

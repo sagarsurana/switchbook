@@ -12,8 +12,6 @@ import UserNotifications
 
 class GroupTableViewController: UITableViewController {
     
-//    var groups = ["Family", "Friends", "Club"];
-    
     @IBOutlet weak var addGroup: UIBarButtonItem!
     
     var groups : [String] = []
