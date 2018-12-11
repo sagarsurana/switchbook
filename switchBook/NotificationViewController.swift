@@ -133,21 +133,29 @@ struct NotificationData {
 
 /*
  Aviral's comment: firebase isnt working on my laptop
+ 
  place to store notification in the string format
  var notifications : [String] = []
-Once you recieve the notification
+ 
+Once you recieve the notification -------------------------------------------------
 Step one : convert it into a string format
- Notification current = //get the notification that was triggered.
+Notification current = //get the notification that was triggered.
 String currentNotification = "Hello! You have been matched with" + current.matchName + " on " +
                               current.date + " from the group " + current.groupName + ". Please send
                               them a book of your choosing to the address " = current.address
+ 
+ 
  //Add this string to the database for populating the table in the future
+ 
  notifications.append(currentNotification)
+ 
  //insert the current notification you got to the existing table
+ 
  tableView.insertRows(at: [IndexPath(row: notifications.count - 1, section: 0)], with: .automatic)
  
  //NOW YOU HAVE TO POPULATE THE EXISTING TABLE WITH EXISTING NOTIFICATIONS
  //PREFERABLY COPY THIS CODE IN viewDidLoad
+ 
  var notifications : [String] =  call the database to get the previous notifications, we need  a place to store them
  
  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -155,6 +163,7 @@ String currentNotification = "Hello! You have been matched with" + current.match
  }
  
  //as it creates the table rows , it adds the existing notifications to the table
+ 
  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
  let cell = UITableViewCell()
  cell.textLabel?.text = notifications[indexPath.row]
