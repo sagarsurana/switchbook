@@ -85,7 +85,6 @@ class AddGroupViewController: UIViewController, UITableViewDelegate, UITableView
                     })
             }
             groupData.setValue(["members": personDict, "name": addName.text!, "date": Date().timeIntervalSince1970])
-            performSegue(withIdentifier: "groupAdded", sender: self)
         }
     }
     
