@@ -41,11 +41,24 @@ class AddGroupViewController: UIViewController, UITableViewDelegate, UITableView
     @IBAction func addGroup(_ sender: Any) {
         let ref = Database.database().reference()
         let groupData = ref.child("groups").childByAutoId()
-        let userData = ref.child("users")
+//        let userData = ref.child("users")
+//            .child(Auth.auth().currentUser!.uid)
+//            .child("Advertisements")
+//            .queryOrderedByKey()
+//            .observeSingleEvent(of: .value, with: { snapshot in
+//
+//                guard let dict = snapshot.value as? [String:Any] else {
+//                    print("Error")
+//                    return
+//                }
+//                let imageAd = dict["imageAd"] as? String
+//                let priceAd = dict["priceAd"] as? String
+//            })
         groupID = groupData.key!
         var personDict: [String: Bool] = [:]
         for person in persons {
             personDict[person] = false
+            
             
         }
         //TODO: ADD Intial Notficiation Date Here AS Date not timestamp

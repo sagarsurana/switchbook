@@ -78,8 +78,8 @@ class SignViewController: UIViewController {
             }
             
             ref = Database.database().reference()
-            
-            let userData = ref.child("users").child(email.text!)
+            let emailChanged = email.text!.replacingOccurrences(of: ".", with: ",")
+            let userData = ref.child("users").child(emailChanged)
             
             userData.setValue(["name": name.text, "email": email.text, "age": age.text, "address": address.text, "zip": zip.text])
             
