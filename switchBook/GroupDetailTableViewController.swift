@@ -11,12 +11,10 @@ import UIKit
 
 class GroupDetailTableViewController: UITableViewController {
 
-//    var members = ["Dad", "Mom", "Allen"]
     var members : [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -48,4 +46,4 @@ class GroupDetailTableViewController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
-} // user data not being pushed
+}
