@@ -141,6 +141,7 @@ Step one : convert it into a string format
 String currentNotification = "Hello! You have been matched with" + current.matchName + " on " +
                               current.date + " from the group " + current.groupName + ". Please send
                               them a book of your choosing to the address " = current.address
+ //Add this string to the database for populating the table in the future
  notifications.append(currentNotification)
  //insert the current notification you got to the existing table
  tableView.insertRows(at: [IndexPath(row: notifications.count - 1, section: 0)], with: .automatic)
