@@ -69,10 +69,19 @@ class SignViewController: UIViewController {
                 
                 // show the alert
                 self.present(alert, animated: true, completion: nil)
-        } else {
+        } else if ((password.text!.count) < 6) {
+            let alert = UIAlertController(title: "Password Error", message: "Password must be more than 6 characters", preferredStyle: UIAlertController.Style.alert)
+            
+            // add an action (button)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            
+            // show the alert
+            self.present(alert, animated: true, completion: nil)
+    } else {
             Auth.auth().createUser(withEmail: email.text!, password: password.text!) { (authResult, error) in
                 guard let user = authResult?.user else {
                     print("noo")
+                    print(error?.localizedDescription)
                     return
                 }
                 self.uid = user.uid

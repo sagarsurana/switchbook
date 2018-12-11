@@ -64,9 +64,9 @@ class AddGroupViewController: UIViewController, UITableViewDelegate, UITableView
                     groupArray.append(self.groupID)
                     print(groupArray)
                 })
-            let current = ref.child("user").child(emailChanged)
+            let current = ref.child("users").child(emailChanged)
             let values = [
-                "groups": "groupArray"
+                "groups": groupArray
             ]
             current.setValue(values)
         }
