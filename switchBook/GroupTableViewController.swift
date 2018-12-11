@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseDatabase
 import UserNotifications
+import Firebase
 
 class GroupTableViewController: UITableViewController {
     

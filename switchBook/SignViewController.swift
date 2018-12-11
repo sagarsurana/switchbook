@@ -60,7 +60,7 @@ class SignViewController: UIViewController {
                 
                 // show the alert
                 self.present(alert, animated: true, completion: nil)
-        } else if(strlen(zip.text) < 5) {
+        } else if (strlen(zip.text) < 5) {
                 // create the alert
                 let alert = UIAlertController(title: "Incorrect zip code", message: "The zip code is wrong", preferredStyle: UIAlertController.Style.alert)
                 
@@ -77,7 +77,7 @@ class SignViewController: UIViewController {
             
             // show the alert
             self.present(alert, animated: true, completion: nil)
-    } else {
+        } else {
             Auth.auth().createUser(withEmail: email.text!, password: password.text!) { (authResult, error) in
                 guard let user = authResult?.user else {
                     print("noo")

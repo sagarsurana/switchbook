@@ -19,6 +19,17 @@ class AddGroupViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var person: UITextField!
     var persons : [String] = []
     var groupID = ""
+    var ref = Database.database().reference()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.hideKeyboard()
+        ref = Database.database().reference()
+        tableView.delegate = self
+        tableView.dataSource = self
+        addPerson.layer.cornerRadius = 10
+        addPerson.clipsToBounds = true
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return persons.count
@@ -39,52 +50,47 @@ class AddGroupViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @IBAction func addGroup(_ sender: Any) {
-        let ref = Database.database().reference()
-        let groupData = ref.child("groups").childByAutoId()
-        let userData = ref.child("users")
-        groupID = groupData.key!
-        let currentEmail = Auth.auth().currentUser?.email?.replacingOccurrences(of: ".", with: ",")
-        print(currentEmail)
-        var personDict: [String: Bool] = [(currentEmail)!:false]
-        for personEmail in persons {
-            let emailChanged = personEmail.replacingOccurrences(of: ".", with: ",")
-            personDict[emailChanged] = false
-            var groupArray: [String] = []
-            userData
-                .child(emailChanged)
-                .observeSingleEvent(of: .value, with: { (snapshot) in
-                    print(snapshot.value!)
-                    guard let userDict = snapshot.value as? [String:Any] else {
-                        print("errrorrr")
-                        return
-                    }
-                    if userDict["groups"] != nil {
-                        groupArray = userDict["groups"] as! [String]
-                    }
-                    groupArray.append(self.groupID)
-                    print(groupArray)
-                })
-            let current = ref.child("users").child(emailChanged)
-            let values = [
-                "groups": groupArray
-            ]
-            current.setValue(values)
+        if (((addName.text?.isEmpty)!)) {
+            let alert = UIAlertController(title: "Group Name Empty", message: "Please enter a valid group name", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            let groupData = ref.child("groups").childByAutoId()
+            let userData = ref.child("users")
+            groupID = groupData.key!
+            let currentEmail = Auth.auth().currentUser?.email?.replacingOccurrences(of: ".", with: ",")
+            var personDict: [String: Bool] = [(currentEmail)!:false]
+            var groupMembers = persons
+            groupMembers.append(currentEmail!)
+            for personEmail in groupMembers {
+                let emailChanged = personEmail.replacingOccurrences(of: ".", with: ",")
+                personDict[emailChanged] = false
+                var groupArray: [String:String] = [:]
+                userData
+                    .child(emailChanged)
+                    .observeSingleEvent(of: .value, with: { (snapshot) in
+                        print(snapshot.value!)
+                        guard let userDict = snapshot.value as? [String:Any] else {
+                            print("Error")
+                            return
+                        }
+                        if userDict["groups"] != nil {
+                            groupArray = userDict["groups"] as! [String:String]
+                        }
+                        groupArray[self.groupID] = self.addName.text
+                        print(groupArray)
+                        print(userDict)
+                        let current = userData.child(emailChanged)
+                        current.updateChildValues(["groups" : groupArray])
+                    })
+            }
+            groupData.setValue(["members": personDict, "name": addName.text!, "date": Date().timeIntervalSince1970])
+            performSegue(withIdentifier: "groupAdded", sender: self)
         }
-        groupData.setValue(["members": personDict, "name": addName.text!, "date": Date().timeIntervalSince1970])
-        performSegue(withIdentifier: "groupAdded", sender: self)
     }
     
     @IBAction func addPerson(_ sender: Any) {
         persons.append(person.text ?? "")
         tableView.insertRows(at: [IndexPath(row: persons.count - 1, section: 0)], with: .automatic)
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.hideKeyboard()
-        tableView.delegate = self
-        tableView.dataSource = self
-        addPerson.layer.cornerRadius = 10
-        addPerson.clipsToBounds = true
     }
 }
