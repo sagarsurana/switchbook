@@ -23,10 +23,6 @@ class LoginViewController: UIViewController {
         login.clipsToBounds = true
     }
     
-    @IBAction func forgot(_ sender: Any) {
-        performSegue(withIdentifier: "forgot", sender: self)
-    }
-    
     @IBAction func loginAuthentication(_ sender: Any) {
         if((emailInput.text?.isEmpty)! || (passwordInput.text?.isEmpty)!) {
             let alert = UIAlertController(title: "Incorrect Details", message: "One of the fields is empty", preferredStyle: UIAlertController.Style.alert)

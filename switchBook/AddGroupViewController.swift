@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseDatabase
+import Firebase
 
 class AddGroupViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -53,7 +54,11 @@ class AddGroupViewController: UIViewController, UITableViewDelegate, UITableView
 //                let priceAd = dict["priceAd"] as? String
 //            })
         groupID = groupData.key!
-        var personDict: [String: Bool] = [:]
+        print(Auth.auth().currentUser?.uid)
+        
+        let currentEmail = Auth.auth().currentUser?.email?.replacingOccurrences(of: ".", with: ",")
+        print(currentEmail)
+        var personDict: [String: Bool] = [(currentEmail)!:false]
         for personEmail in persons {
             let emailChanged = personEmail.replacingOccurrences(of: ".", with: ",")
             personDict[emailChanged] = false
@@ -74,7 +79,7 @@ class AddGroupViewController: UIViewController, UITableViewDelegate, UITableView
                     print(groupArray)
                 })
             print(groupArray)
-            userData.child(emailChanged).updateChildValues(["groups" : groupArray])
+            userData.child(emailChanged).setValue(["groups":groupArray])
         }
         
         groupData.setValue(["members": personDict, "name": addName.text!, "date": Date().timeIntervalSince1970])

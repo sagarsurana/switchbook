@@ -71,9 +71,15 @@ class SignViewController: UIViewController {
                 self.present(alert, animated: true, completion: nil)
         } else {
             Auth.auth().createUser(withEmail: email.text!, password: password.text!) { (authResult, error) in
-
-                guard let user = authResult?.user else { return }
+                
+                guard let user = authResult?.user else {
+                    print("noo")
+                    print(error?.localizedDescription)
+                    return
+                    
+                }
                 self.uid = user.uid
+                print(self.email.text! + " HEREE")
 
             }
             
