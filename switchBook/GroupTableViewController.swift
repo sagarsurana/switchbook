@@ -34,10 +34,12 @@ class GroupTableViewController: UITableViewController {
                     print("Error")
                     return
                 }
-                self.groups = userDict["groups"] as! [String:String]
-                for (key, value) in self.groups {
-                    self.groupIDs.append(key)
-                    self.groupNames.append(value)
+                if (userDict["groups"] != nil) {
+                    self.groups = userDict["groups"] as! [String:String]
+                    for (key, value) in self.groups {
+                        self.groupIDs.append(key)
+                        self.groupNames.append(value)
+                    }
                 }
                 print(self.groups)
                 self.tableView.reloadData()
