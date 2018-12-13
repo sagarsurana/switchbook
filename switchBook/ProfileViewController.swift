@@ -18,7 +18,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var profileAge: UILabel!
     @IBOutlet weak var switchedBookName: UILabel!
     @IBOutlet weak var list: UITableView!
-    let currentEmail = Auth.auth().currentUser?.email?.replacingOccurrences(of: ".", with: ",")
+    var currentEmail = Auth.auth().currentUser?.email?.replacingOccurrences(of: ".", with: ",")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +27,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         addButton.clipsToBounds = true
         list.delegate = self
         list.dataSource = self
-        
+        currentEmail = Auth.auth().currentUser?.email?.replacingOccurrences(of: ".", with: ",")
         let userData = Database.database().reference().child("users").child(currentEmail!)
         userData.observeSingleEvent(of: .value, with: { (snapshot) in
             print(snapshot.value!)
@@ -37,7 +37,9 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
             self.profileName.text = userDict["name"] as? String
             self.age.text = userDict["age"] as? String
+            
             if (userDict["books"] != nil) {
+                print(userDict["books"])
                 self.books = userDict["books"] as! [String]
             }
             self.list.reloadData()
@@ -68,25 +70,31 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             let alert = UIAlertController(title: "Incorrect Details", message: "The field is empty", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
-            
-            
         } else {
-            userBook = userInput.text ?? ""
-            let ref = Database.database().reference().child("users")
-            ref.child(currentEmail!).observeSingleEvent(of: .value, with: { (snapshot) in
-                let val = snapshot.value as! [String:Any]
-                var allBooks: [String:String] = [:]
-                var size = "0"
-                if (val["books"] != nil) {
-                    let curr = val["books"] as! [String]
-                    size = String(curr.count)
-                }
-                allBooks[size] = self.userBook
-                ref.child(self.currentEmail!).updateChildValues(["books":allBooks])
-                self.books.append(self.userBook)
-                self.list.reloadData()
-                
-            })
+            if (userInput.text! != nil) {
+                userBook = userInput.text!
+                let ref = Database.database().reference().child("users")
+                ref.child(currentEmail!).observeSingleEvent(of: .value, with: { (snapshot) in
+                    let val = snapshot.value as! [String:Any]
+                    var allBooks: [String:String] = [:]
+                    var databaseBooks: [String] = []
+                    
+                    var count = 0
+                    if (val["books"] != nil) {
+                        print(val["books"])
+                        databaseBooks = val["books"] as! [String]
+                        for book in databaseBooks {
+                            allBooks[String(count)] = book
+                            count += 1
+                        }
+                    }
+                    allBooks[String(count)] = self.userBook
+                    ref.child(self.currentEmail!).updateChildValues(["books":allBooks])
+                    self.books.append(self.userBook)
+                    self.list.reloadData()
+                    self.userInput.text = ""
+                })
+            }
         }
     }
 }

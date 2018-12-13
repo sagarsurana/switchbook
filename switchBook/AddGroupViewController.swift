@@ -91,7 +91,30 @@ class AddGroupViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @IBAction func addPerson(_ sender: Any) {
-        persons.append(person.text ?? "")
-        tableView.insertRows(at: [IndexPath(row: persons.count - 1, section: 0)], with: .automatic)
+        let myGroup = DispatchGroup()
+        let ref = Database.database().reference().child("users")
+        var users: [String] = []
+        myGroup.enter()
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            let values = snapshot.value as! [String:Any]
+            users = Array(values.keys)
+            print(users)
+            myGroup.leave()
+        })
+        myGroup.notify(queue: .main) {
+            print("done")
+        let input = self.person.text?.replacingOccurrences(of: ".", with: ",")
+        print(input)
+        print(users)
+        if (!users.contains(input!)) {
+            let alert = UIAlertController(title: "Invalid Input", message: "Email does not belong to any user", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Try Again", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        } else {
+            self.persons.append(self.person.text ?? "")
+            self.tableView.reloadData()
+//            tableView.insertRows(at: [IndexPath(row: persons.count - 1, section: 0)], with: .automatic)
+            }
+        }
     }
 }

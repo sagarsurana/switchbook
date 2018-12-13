@@ -41,39 +41,20 @@ class SignViewController: UIViewController {
     
     @IBAction func accountCreate(_ sender: Any) {
         if((name.text?.isEmpty)! || (email.text?.isEmpty)! || (password.text?.isEmpty)! || (retypedPassword.text?.isEmpty)! || (age.text?.isEmpty)! || (address.text?.isEmpty)! || (zip.text?.isEmpty)!) {
-                // create the alert
                 let alert = UIAlertController(title: "Incorrect Details", message: "One of the fields is empty", preferredStyle: UIAlertController.Style.alert)
-                
-                // add an action (button)
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-                
-                // show the alert
                 self.present(alert, animated: true, completion: nil)
         } else if(!(password.text)!.elementsEqual((retypedPassword.text)!)) {
-                // create the alert
                 let alert = UIAlertController(title: "Password incorrect", message: "The passwords dont match", preferredStyle: UIAlertController.Style.alert)
-                
-                // add an action (button)
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-                
-                // show the alert
                 self.present(alert, animated: true, completion: nil)
         } else if (strlen(zip.text) < 5) {
-                // create the alert
                 let alert = UIAlertController(title: "Incorrect zip code", message: "The zip code is wrong", preferredStyle: UIAlertController.Style.alert)
-                
-                // add an action (button)
                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-                
-                // show the alert
                 self.present(alert, animated: true, completion: nil)
         } else if ((password.text!.count) < 6) {
             let alert = UIAlertController(title: "Password Error", message: "Password must be more than 6 characters", preferredStyle: UIAlertController.Style.alert)
-            
-            // add an action (button)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-            
-            // show the alert
             self.present(alert, animated: true, completion: nil)
         } else {
             Auth.auth().createUser(withEmail: email.text!, password: password.text!) { (authResult, error) in

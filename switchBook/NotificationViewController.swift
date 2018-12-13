@@ -15,12 +15,28 @@ class NotificationViewController: UIViewController, UITableViewDelegate, UITable
     
     @IBOutlet weak var tableView: UITableView!
     
+    lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action:
+            #selector(self.handleRefresh(_:)),
+                                 for: UIControl.Event.valueChanged)
+        refreshControl.tintColor = UIColor.red
+        
+        return refreshControl
+    }()
+    
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl) {
+        setUp()
+    }
+
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allNotifications.count
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tableView.addSubview(self.refreshControl)
         setUp()
     }
     
@@ -64,6 +80,8 @@ class NotificationViewController: UIViewController, UITableViewDelegate, UITable
                     print("no here")
                 }
                 self.tableView.reloadData()
+                
+                self.refreshControl.endRefreshing()
             }
         }
         print("All Notifications: \(allNotifications)")
@@ -97,7 +115,7 @@ class NotificationViewController: UIViewController, UITableViewDelegate, UITable
                     print("unixTimeStamp: \(unixTimeStamp)")
                     let gate = matchedMembers[memberID]
                     if (unixTimeStamp >= DateTimeStamp && !gate!) {
-                        let membersNeeded = self.checkUpdates(members: members)
+                        let membersNeeded = members
                         print("MEMBERS: \(membersNeeded)")
                         if (self.oneLeftToMatch(members: matchedMembers, currentUser: memberID)) {
                             var dateComponent = DateComponents()
@@ -108,14 +126,17 @@ class NotificationViewController: UIViewController, UITableViewDelegate, UITable
                             print("Future Timestamp: \(futureTimestamp)")
                             let ref = Database.database().reference().child("groups")
                             ref.child(group).updateChildValues(["date":futureTimestamp])
-                            
                         }
                         print(membersNeeded.count)
                         if (membersNeeded.count > 1){
                             self.matchingAlgorithm(memberID: memberID, allMembers: membersNeeded, groupName: (groupName), currentDate: currentDateTime, groupID: group)
                         }
-                        let ref = Database.database().reference().child("groups").child(group).child("sendermatched")
-                        ref.updateChildValues([memberID:true])
+                        let ref = Database.database().reference().child("groups").child(group)
+                        ref.child("sendermatched").updateChildValues([memberID:true])
+                        if (self.oneLeftToMatch(members: membersNeeded, currentUser: memberID)) {
+                            matchedMembers = self.checkUpdates(members: matchedMembers)
+                            ref.updateChildValues(["sendermatched": matchedMembers])
+                        }
                         
                     }
                     else{
@@ -129,12 +150,7 @@ class NotificationViewController: UIViewController, UITableViewDelegate, UITable
     func checkUpdates(members: [String:Bool]) -> [String:Bool]{
         var tempMembers = members
         for memberID in Array(tempMembers.keys) {
-            if (!tempMembers[memberID]!){
-                return members
-            }
-            else{
-                tempMembers[memberID] = false
-            }
+            tempMembers[memberID] = false
         }
         return tempMembers
     }
@@ -196,8 +212,8 @@ class NotificationViewController: UIViewController, UITableViewDelegate, UITable
         components.month = Calendar.current.component(.month, from: date)
         components.day = Calendar.current.component((.day), from: date)
         components.hour = Calendar.current.component(.hour, from: date)
-        components.minute = Calendar.current.component(.minute, from: date) + 1
-        
+        components.minute = Calendar.current.component(.minute, from: date)
+        components.second = Calendar.current.component(.second, from: date)
         
         let tigger = UNCalendarNotificationTrigger(dateMatching: components , repeats: true)
         let request = UNNotificationRequest(identifier: "testIdentifier", content: content, trigger: tigger)
