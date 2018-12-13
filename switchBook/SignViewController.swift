@@ -12,8 +12,6 @@ class SignViewController: UIViewController {
     var ref: DatabaseReference!
     var groupID : [String] = []
     var book : [String] = []
-//    let books
-//    let groups : [String] = []
     
 
     @IBOutlet weak var name: UITextField!

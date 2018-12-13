@@ -28,11 +28,7 @@ class LoginViewController: UIViewController {
     @IBAction func loginAuthentication(_ sender: Any) {
         if((emailInput.text?.isEmpty)! || (passwordInput.text?.isEmpty)!) {
             let alert = UIAlertController(title: "Incorrect Details", message: "One of the fields is empty", preferredStyle: UIAlertController.Style.alert)
-            
-            // add an action (button)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-            
-            // show the alert
             self.present(alert, animated: true, completion: nil)
         } else {
             Auth.auth().signIn(withEmail: emailInput.text!, password: passwordInput.text!) { (user, error) in

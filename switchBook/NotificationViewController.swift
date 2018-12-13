@@ -3,108 +3,200 @@
 //  switchBook
 //
 //  Created by Sarthak Turkhia on 12/10/18.
-//  Copyright © 2018 AviralSharma. All rights reserved.
 //
 
 import UIKit
 import UserNotifications
 import FirebaseDatabase
-//import Firebase
+import Firebase
 
 
-class NotificationViewController: UIViewController {
+class NotificationViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    @IBOutlet weak var NotificationTable: UITableView!
+    @IBOutlet weak var tableView: UITableView!
     
-    
-    var matchID: String = ""
-    var allNotifications : [NotificationData] = []
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return allNotifications.count
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        var ref = Database.database().reference()
-        var groupIDs = ["Family", "Friends", "Club"]
-        var memberIDs : [String] = []
-        var memberID : String = ""
-        let unixTimeStamp = TimeInterval(Date().timeIntervalSince1970)
-        var currentDateTime = Date(timeIntervalSince1970: unixTimeStamp)
-        print("Current date-time: \(currentDateTime)")
-        sendNotification(Date: currentDateTime)
-        
-        
-        
-        // Get list of groupIds  for user and populate groupNames array
-            // For Each group create a members array inside for loop
-            // for group in groupIDs{
-                // get members for group
-                // memberIDs = from group Members
-            //}
-        
-        // Get Datetime from the Server and update Datetime
-        // Get MemberID and store it as MemberId
-        
-        
-        
-       
-        
-        //if unixTimeStamp >= dateTime from Firebase{
-            // sendNotification
-        // matchingAlgorithm(memberID: memberID, memberIDs: )
-        
-            // Update dateTime on Server with +30 days
-        
-            // var dateComponent = DateComponents()
-            // dateComponent.days = 30
-            // var convertedDateTIme = Date(timeIntervalSince1970: dateTime)
-            // let futureDate = Calendar.current.date(byAdding: dateComponent, to: convertedDateTime)
-            // let futureTimestamp = futureDate.timeIntervalSince1970
-            // SET Date-time here
-        
-        
-        //}
-        //else{
-            
-        //}
+        setUp()
     }
     
-    func matchingAlgorithm(memberID: String, memberIDs: [String], groupName: String, currentDate: Date) -> NotificationData{
-        var isMatched = false
-        var notificationObj : NotificationData?
-        while !isMatched {
-            let number = Int.random(in: 0 ..< memberIDs.count)
-            if(memberIDs[number] != memberID){
-                //Check if the memberIDs boolean is not false{
-                // Make memberID's boolean false
-                matchID = memberIDs[number]
-                isMatched = true
-                
-                // get member's Address and Name
-                var address: String = ""
-                var name: String = ""
-                
-                notificationObj = NotificationData(matchname: name, date: currentDate, groupName: groupName, address: address)
-                
-                //}
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell()
+        cell.textLabel?.text = Array(allNotifications.values)[indexPath.row]
+        cell.textLabel?.textColor = UIColor(red:0.90, green:0.37, blue:0.33, alpha:1.0)
+        cell.textLabel?.numberOfLines = 0
+        return cell
+    }
+    
+    var allNotifications : [String:String] = [:]
+    var UserRef = Database.database().reference().child("users")
+    var GroupRef = Database.database().reference().child("groups")
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        super.viewWillAppear(true)
+        setUp()
+    }
+    
+    func setUp() {
+        self.allNotifications = [:]
+        print("VIEW DID LOADT")
+        let memberID : String = Auth.auth().currentUser?.email!.replacingOccurrences(of: ".", with: ",") ?? " "
+        print("MEMBER ID \(memberID)")
+        
+        var groups: [String: String] = [:]
+        
+        
+        UserRef.child(memberID).observeSingleEvent(of: .value) { (snapshot) in
+            print(snapshot.value!)
+            let value = snapshot.value as? [String:Any]
+            if (value?["groups"] != nil) {
+                groups = value?["groups"] as! [String: String]
+                print("Group IDs: \(Array(groups.keys))")
+                self.getData(groups: groups, memberID: memberID)
+                if value?["notifications"] != nil {
+                    self.allNotifications = value?["notifications"] as! [String:String]
+                    print("no here")
+                }
+                self.tableView.reloadData()
             }
         }
+        print("All Notifications: \(allNotifications)")
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+    
+    func getData(groups: [String:String], memberID: String) {
+        let unixTimeStamp = TimeInterval(Date().timeIntervalSince1970)
+        let currentDateTime = Date(timeIntervalSince1970: unixTimeStamp)
         
-        return notificationObj!
+        for group in Array(groups.keys){
+            print(group)
+            print("groupss^")
+            // Dictionary [String: Boolean]
+            var members : [String: Bool] = [:]
+            var DateTimeStamp: TimeInterval = Date().timeIntervalSince1970
+            let groupName = groups[group] as! String
+            print("GroupName: \(groupName)")
+            GroupRef
+                .child(group)
+                .observeSingleEvent(of: .value, with: { (snapshot) in
+                    let value = snapshot.value as? [String:Any]
+                    print(value)
+                    print("snapshot here")
+                    DateTimeStamp = value?["date"] as! TimeInterval
+                    members = value?["members"] as! [String: Bool]
+                    var matchedMembers = value?["sendermatched"] as! [String:Bool]
+                    print("MEMBERS: \(members)")
+                    print("DateTimeStamp: \(DateTimeStamp)")
+                    print("unixTimeStamp: \(unixTimeStamp)")
+                    let gate = matchedMembers[memberID]
+                    if (unixTimeStamp >= DateTimeStamp && !gate!) {
+                        let membersNeeded = self.checkUpdates(members: members)
+                        print("MEMBERS: \(membersNeeded)")
+                        if (self.oneLeftToMatch(members: matchedMembers, currentUser: memberID)) {
+                            var dateComponent = DateComponents()
+                            dateComponent.day = 30
+                            let convertedDateTIme = Date(timeIntervalSince1970: DateTimeStamp)
+                            let futureDate = Calendar.current.date(byAdding: dateComponent, to: convertedDateTIme)
+                            let futureTimestamp = futureDate!.timeIntervalSince1970
+                            print("Future Timestamp: \(futureTimestamp)")
+                            let ref = Database.database().reference().child("groups")
+                            ref.child(group).updateChildValues(["date":futureTimestamp])
+                            
+                        }
+                        print(membersNeeded.count)
+                        if (membersNeeded.count > 1){
+                            self.matchingAlgorithm(memberID: memberID, allMembers: membersNeeded, groupName: (groupName), currentDate: currentDateTime, groupID: group)
+                        }
+                        let ref = Database.database().reference().child("groups").child(group).child("sendermatched")
+                        ref.updateChildValues([memberID:true])
+                        
+                    }
+                    else{
+                        self.sendNotification(date: Date(timeIntervalSince1970: DateTimeStamp))
+                    }
+                })
+        }
     }
     
     
-    // Sends notifications to prompt user to open the app
-    func sendNotification(Date: Date){
+    func checkUpdates(members: [String:Bool]) -> [String:Bool]{
+        var tempMembers = members
+        for memberID in Array(tempMembers.keys) {
+            if (!tempMembers[memberID]!){
+                return members
+            }
+            else{
+                tempMembers[memberID] = false
+            }
+        }
+        return tempMembers
+    }
+    
+    func oneLeftToMatch(members: [String:Bool], currentUser: String) -> Bool{
+        for member in Array(members.keys) {
+            if (!members[member]! && member != currentUser) {
+                return false
+            }
+        }
+        return true
+    }
+    
+    func matchingAlgorithm(memberID: String, allMembers: [String: Bool], groupName: String, currentDate: Date, groupID: String) {
+        var members : [String : Bool] = allMembers
+        var isMatched = false
+        var memberIDs : [String] = Array(members.keys)
+        var returnString = "No matches"
+        while !isMatched {
+            let number = Int.random(in: 0 ..< memberIDs.count)
+            print(number)
+            let currentMemberID = memberIDs[number]
+            print("Current Member ID: \(currentMemberID)")
+            print("My member ID: \(memberID)")
+            if(currentMemberID != memberID){
+                if (members[currentMemberID]! == false){
+                    // Make memberID's boolean true
+                    members[currentMemberID] = true
+                    GroupRef.child(groupID).updateChildValues(["members" : members])
+                    print("MEMBERS : \(members)")
+                    isMatched = true
+                    UserRef.child(currentMemberID).observeSingleEvent(of: .value) { (snapshot) in
+                        let value = snapshot.value as? NSDictionary
+                        let address = value?["address"] as? String ?? ""
+                        let name = value?["name"] as? String ?? ""
+                        let zip = value?["zip"] as? String ?? ""
+                        returnString = "You were matched with \(name) on \(currentDate.description) from group \(groupName). Send a book to his address at \(address), \(zip) within the next 30 days."
+                        
+                        self.sendNotification(date: currentDate)
+                        
+                            print(self.allNotifications)
+                            self.allNotifications[currentDate.description] = returnString
+                            self.UserRef.child(memberID).updateChildValues(["notifications":self.allNotifications])
+                            self.tableView.reloadData()
+                    }
+                }
+            }
+        }
+    }
+    
+    func sendNotification(date: Date){
         let content = UNMutableNotificationContent()
         content.title = "You have been matched!"
-        content.body = "Open the app to see details of the recipient reader."
+        content.body = "Open the app to see details of the recipient."
         content.sound = UNNotificationSound.default
         
         var components = DateComponents()
-        components.year = Calendar.current.component(.year, from: Date)
-        components.month = Calendar.current.component(.month, from: Date)
-        components.day = Calendar.current.component((.day), from: Date)
-        components.hour = Calendar.current.component(.hour, from: Date)
-        components.minute = Calendar.current.component(.minute, from: Date) + 1
+        components.year = Calendar.current.component(.year, from: date)
+        components.month = Calendar.current.component(.month, from: date)
+        components.day = Calendar.current.component((.day), from: date)
+        components.hour = Calendar.current.component(.hour, from: date)
+        components.minute = Calendar.current.component(.minute, from: date) + 1
         
         
         let tigger = UNCalendarNotificationTrigger(dateMatching: components , repeats: true)
@@ -112,65 +204,3 @@ class NotificationViewController: UIViewController {
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
 }
-
-
-//TODO Use NotificationData fields with current date to populate Table View
-
-
-struct NotificationData {
-    var matchName: String
-    var date: Date
-    var groupName: String
-    var address: String
-    
-    init(matchname: String, date: Date, groupName: String, address: String) {
-        self.matchName = matchname
-        self.date = date
-        self.groupName = groupName
-        self.address = address
-    }
-}
-
-/*
- Aviral's comment: firebase isnt working on my laptop it says No such module 'FirebaseDatabase'
- 
- place to store notification in the string format
- var notifications : [String] = []
- 
-Once you recieve the notification -------------------------------------------------
-Step one : convert it into a string format
-Notification current = //get the notification that was triggered.
-String currentNotification = "Hello! You have been matched with" + current.matchName + " on " +
-                              current.date + " from the group " + current.groupName + ". Please send
-                              them a book of your choosing to the address " = current.address
- 
- 
- //Add this string to the database for populating the table in the future
- 
- notifications.append(currentNotification)
- 
- //insert the current notification you got to the existing table
- 
- tableView.insertRows(at: [IndexPath(row: notifications.count - 1, section: 0)], with: .automatic)
- 
- //NOW YOU HAVE TO POPULATE THE EXISTING TABLE WITH EXISTING NOTIFICATIONS
- //PREFERABLY COPY THIS CODE IN viewDidLoad
- 
- var notifications : [String] =  call the database to get the previous notifications, we need  a place to store them
- 
- func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
- return notifications.count
- }
- 
- //as it creates the table rows , it adds the existing notifications to the table
- 
- func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
- let cell = UITableViewCell()
- cell.textLabel?.text = notifications[indexPath.row]
- cell.textLabel?.textColor = UIColor(red:0.90, green:0.37, blue:0.33, alpha:1.0)
- return cell
- }
- 
- 
-*/
-

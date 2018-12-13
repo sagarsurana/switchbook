@@ -7,8 +7,7 @@ import FirebaseDatabase
 import Firebase
 
 class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-//    var ref: DatabaseReference!
-    public var books: [String] = []
+    var books: [String] = []
     var userBook : String = ""
     @IBOutlet weak var userInput: UITextField!
     @IBOutlet weak var age: UILabel!
@@ -19,6 +18,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBOutlet weak var profileAge: UILabel!
     @IBOutlet weak var switchedBookName: UILabel!
     @IBOutlet weak var list: UITableView!
+    let currentEmail = Auth.auth().currentUser?.email?.replacingOccurrences(of: ".", with: ",")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,16 +27,20 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         addButton.clipsToBounds = true
         list.delegate = self
         list.dataSource = self
-        let currentEmail = Auth.auth().currentUser?.email?.replacingOccurrences(of: ".", with: ",")
+        
         let userData = Database.database().reference().child("users").child(currentEmail!)
-            userData.observeSingleEvent(of: .value, with: { (snapshot) in
-                print(snapshot.value!)
-                guard let userDict = snapshot.value as? [String:Any] else {
-                    print("errrorrr")
-                    return
-                }
-                self.profileName.text = userDict["name"] as? String
-                self.age.text = userDict["age"] as? String
+        userData.observeSingleEvent(of: .value, with: { (snapshot) in
+            print(snapshot.value!)
+            guard let userDict = snapshot.value as? [String:Any] else {
+                print("errrorrr")
+                return
+            }
+            self.profileName.text = userDict["name"] as? String
+            self.age.text = userDict["age"] as? String
+            if (userDict["books"] != nil) {
+                self.books = userDict["books"] as! [String]
+            }
+            self.list.reloadData()
         })
     }
     
@@ -62,37 +66,27 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     @IBAction func addBook(_ sender: Any) {
         if((userInput.text?.isEmpty)!) {
             let alert = UIAlertController(title: "Incorrect Details", message: "The field is empty", preferredStyle: UIAlertController.Style.alert)
-            
-            // add an action (button)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-            
-            // show the alert
             self.present(alert, animated: true, completion: nil)
             
             
         } else {
-//            ref = Database.database().reference()
             userBook = userInput.text ?? ""
-            books.append(userBook)
-            list.insertRows(at: [IndexPath(row: books.count - 1, section: 0)], with: .automatic)
+            let ref = Database.database().reference().child("users")
+            ref.child(currentEmail!).observeSingleEvent(of: .value, with: { (snapshot) in
+                let val = snapshot.value as! [String:Any]
+                var allBooks: [String:String] = [:]
+                var size = "0"
+                if (val["books"] != nil) {
+                    let curr = val["books"] as! [String]
+                    size = String(curr.count)
+                }
+                allBooks[size] = self.userBook
+                ref.child(self.currentEmail!).updateChildValues(["books":allBooks])
+                self.books.append(self.userBook)
+                self.list.reloadData()
+                
+            })
         }
-        
-        func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-            
-            // Create a variable that you want to send
-            let bookList = books
-            
-            // Create a new variable to store the instance
-            let destinationVC : SignViewController = segue.destination as! SignViewController
-            destinationVC.book = bookList
-        }
-
-        
-        
-            
-//            ref.child("users").child("user_information").setValue(["List": userInput.text])
-
-        
-        
     }
 }

@@ -3,7 +3,6 @@
 //  switchBook
 //
 //  Created by Sagar Surana on 12/8/18.
-//  Copyright © 2018 AviralSharma. All rights reserved.
 //
 
 import UIKit

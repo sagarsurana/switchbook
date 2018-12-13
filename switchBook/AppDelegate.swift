@@ -2,8 +2,7 @@
 //  AppDelegate.swift
 //  switchBook
 //
-//  Created by Aviral Sharma on 11/27/18.
-//  Copyright © 2018 AviralSharma. All rights reserved.
+//  Created by Sagar Surana on 11/27/18.
 //
 
 import UIKit

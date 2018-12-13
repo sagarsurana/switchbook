@@ -60,10 +60,12 @@ class AddGroupViewController: UIViewController, UITableViewDelegate, UITableView
             groupID = groupData.key!
             let currentEmail = Auth.auth().currentUser?.email?.replacingOccurrences(of: ".", with: ",")
             var personDict: [String: Bool] = [(currentEmail)!:false]
+            var personMatched : [String:Bool] = [(currentEmail)!:false]
             var groupMembers = persons
             groupMembers.append(currentEmail!)
             for personEmail in groupMembers {
                 let emailChanged = personEmail.replacingOccurrences(of: ".", with: ",")
+                personMatched[emailChanged] = false
                 personDict[emailChanged] = false
                 var groupArray: [String:String] = [:]
                 userData
@@ -84,7 +86,7 @@ class AddGroupViewController: UIViewController, UITableViewDelegate, UITableView
                         current.updateChildValues(["groups" : groupArray])
                     })
             }
-            groupData.setValue(["members": personDict, "name": addName.text!, "date": Date().timeIntervalSince1970])
+            groupData.setValue(["members": personDict, "sendermatched":personMatched, "name": addName.text!, "date": Date().timeIntervalSince1970])
         }
     }
     
